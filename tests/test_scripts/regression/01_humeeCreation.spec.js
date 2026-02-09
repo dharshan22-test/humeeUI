@@ -1,5 +1,5 @@
 const { test } = require('@playwright/test');
-const { createHumeeSection } = require('../pages/createHumeeSection');
+const { createHumeeSection } = require('../../pages/createHumeeSection');
 
 const timeStamp = Date.now();
 
@@ -97,7 +97,6 @@ test.describe('create Humee', () => {
 
         // Verify Humee Info
         await createHumee.verifyHumeeInfo("Twin 1764752031504", humeeName, humeeRole, systemPrompt, humeeContext);
-
 
     });
 

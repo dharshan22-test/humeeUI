@@ -396,10 +396,15 @@ exports.createHumeeSection = class createHumeeSection {
         await this.page.locator("//img[@alt='Setup Intro']/../..//button").click();
     }
 
-    // Delete existing introduction
-    async deleteExistingIntroduction() {
+    // Verify Intro Video is displayed
+    async verifyIntroVideo(){
         const introVideoLocator = "//div[@class='video-container-centered']/video[contains(@src,'https://meet-humee.s3.us-west-1.amazonaws.com/processed-videos/')]";
         await expect(this.page.locator(introVideoLocator)).toBeVisible();
+    }
+
+    // Delete existing introduction
+    async deleteExistingIntroduction() {
+        await this.verifyIntroVideo();
         await this.page.locator("button.delete-video-btn-centered").click();
         await this.page.locator("button.conversation-delete-confirm-btn").click();
         await expect(this.page.locator("div[class='training-header']>h1").filter({ hasText: "Setup Intro" })).toBeVisible();
@@ -560,6 +565,7 @@ exports.createHumeeSection = class createHumeeSection {
         const qrPath = path.resolve('test-results/linkedin-qr-code.png');
         await qrCanvas.screenshot({ path: qrPath });
         const qrUrl = this.qrDecoder.decodeQRCodeFromImage(qrPath);
+        await this.secondPage.close();
         return qrUrl;
 
     }
@@ -572,19 +578,86 @@ exports.createHumeeSection = class createHumeeSection {
 
     // Verify data in Email Signature
     async verifyEmailSignature(humeeName, job, company, phoneNumber, address, email, website) {
-        const tableData = this.page.locator("//div[@class='signature-preview']//tbody//tr/td");
+        const tableData = this.page.locator(`//div[@class='signature-preview']//tbody//tr/td/`);
 
         await expect(this.page.locator("//div[@class='signature-preview']//tbody//tr/td/img[contains(@src,'images')]")).toBeVisible();
 
-        await expect(tableData.filter({ hasText: humeeName })).toBeVisible();
-        await expect(tableData.filter({ hasText: job })).toBeVisible();
-        await expect(tableData.filter({ hasText: company })).toBeVisible();
-        await expect(tableData.filter({ hasText: phoneNumber })).toBeVisible();
-        await expect(tableData.filter({ hasText: address })).toBeVisible();
-        await expect(tableData.locator(a).filter({ hasText: email })).toBeVisible();
-        await expect(tableData.locator(a).filter({ hasText: website })).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td[text()='${humeeName}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td[text()='${job}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td[text()='${company}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td[text()='${phoneNumber}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td[text()='${address}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td/a[text()='${email}']`)).toBeVisible();
+        await expect(this.page.locator(`//div[@class='signature-preview']//tbody//tr/td/a[text()='${website}']`)).toBeVisible();
+        await expect(this.page.locator("//div[@class='signature-preview']//tbody//tr/td/img[contains(@src,'qr')]")).toBeVisible();
 
-        const qrURL = await this.page.locator("//div[@class='signature-preview']//tbody//tr/td/img[contains(@src,'qr')]").getAttribute('src');
+    }
+
+    // Return QR URL from the image of Email Signature
+    async getEmailSignQRURL() {
+        const qrImageURL = await this.page.locator("//div[@class='signature-preview']//tbody//tr/td/img[contains(@src,'qr')]").getAttribute('src');
+        // Check this in free time, same code used in get linked in image url, so try to create a new method of it
+        if (!qrImageURL) {
+            throw new Error('Image URL not found');
+        }
+
+        const context = this.page.context();
+        this.secondPage = await context.newPage();
+        await this.secondPage.goto(qrImageURL);
+        await this.secondPage.waitForTimeout(5000); //5 secs to render the image in the page
+
+        const qrCanvas = this.secondPage.locator("body>img");
+        await expect(qrCanvas).toBeVisible();
+        const qrPath = path.resolve('test-results/email-qr-code.png');
+        await qrCanvas.screenshot({ path: qrPath });
+        const qrUrl = this.qrDecoder.decodeQRCodeFromImage(qrPath);
+        await this.secondPage.close();
+        return qrUrl;
+    }
+
+    // Close copy link popup
+    async closeCopyLinkPopup() {
+        await this.page.locator("button.popup-close").click();
+    }
+
+    // Click logo and verify homepage is displayed correctly
+    async clickLogo() {
+        await this.page.locator("div.headerTop>div>img.header-logo").click();
+        await expect(this.page.locator("div.tab-navigation2>button").nth(0)).toBeVisible();
+    }
+
+    // Verify search input in dashboard page
+    async verifySearch(humeeRole) {
+        await this.page.locator("div.search-overlay-content>div>input").pressSequentially(humeeRole);
+
+        await expect(this.page.locator("div.skeleton-loader-container")).toBeVisible();
+        await expect(this.page.locator("div.skeleton-loader-container")).not.toBeVisible();
+
+        await expect(this.page.locator("//div[@class='item-info']")).toBeVisible();
+        await expect(this.page.locator("//div[@class='item-info']")).toHaveCount(1);
+
+        await expect(this.page.locator("//div[@class='item-info']/h4")).toHaveText(humeeRole);
+
+
+    }
+
+    // Click Edit Widget Icon icon
+    async clickEditWidgetIcon(humeeRole) {
+        await this.page.locator(`//div[@class='item-info']/h4[text()='${humeeRole}']/../../div/button[@title='Edit widget']`).click();
+        await expect(this.page.locator("div.settings-page>div.settings-content")).toBeVisible();
+        await expect(this.page.locator("img[alt='In Training']")).toBeVisible();
+        await expect(this.page.locator("img[alt='Setup Intro']")).toBeVisible();
+        await expect(this.page.locator("img[alt='3rd Party Config']")).toBeVisible();
+        await expect(this.page.locator("img[alt='Generate Widget']").nth(0)).toBeVisible();
+        await expect(this.page.locator("img[alt='Generate Widget']").nth(1)).toBeVisible();
+    }
+
+    // Click clone icon
+    async clickCloneIcon(humeeRole) {
+        await this.page.locator(`//div[@class='item-info']/h4[text()='${humeeRole}']/../../div/button[@title='Clone humee']`).click();
+        await expect(this.page.locator("div.loader-small")).toBeVisible();
+        await expect(this.page.locator("div.loader-small")).not.toBeVisible();
+        await expect(this.page.locator("//div[@class='section-header']/h3[text()='Clone Humee']")).toBeVisible();
     }
 
 

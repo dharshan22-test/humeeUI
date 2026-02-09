@@ -36,9 +36,14 @@ exports.humeeConversation = class humeeConversation {
         // Switch active page
         this.page = this.childPage;
 
-        await expect(this.page.locator("div.chatbot-header-content>div>h3")).toHaveText(humeeType);
-        await expect(this.page.locator("div.chatbot-header-content>div>p")).toHaveText(humeeDescription);
+        if (humeeType && humeeDescription) {
+            await expect(this.page.locator("div.chatbot-header-content>div>h3")).toHaveText(humeeType);
+            await expect(this.page.locator("div.chatbot-header-content>div>p")).toHaveText(humeeDescription);
+        }
+
         await expect(this.page.locator("div.chatbot-content>div>h3")).toHaveText("Welcome to Humee");
+        //sometimes conversation timeout error appears when I click connect button immediately after opening the link, so giving timeout
+        await this.page.waitForTimeout(3000);
         await this.page.locator("div.welcome-lang-ui").click();
 
         // This method is to verify that the intro video is playing

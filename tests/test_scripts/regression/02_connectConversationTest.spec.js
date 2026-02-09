@@ -1,6 +1,6 @@
 const { test } = require('@playwright/test');
-const { createHumeeSection } = require('../pages/createHumeeSection');
-const { humeeConversation } = require('../pages/humeeConversation');
+const { createHumeeSection } = require('../../pages/createHumeeSection');
+const { humeeConversation } = require('../../pages/humeeConversation');
 
 const humeeName = process.env.HUMEE_NAME;
 const humeeRole = process.env.HUMEE_ROLE;
@@ -35,6 +35,9 @@ test.describe('Conversation Test', () => {
         // Verify Humee is displayed in the page
         await createHumee.verifyCreatedHumee(humeeRole);
 
+        // Click link icon of required Humee
+        await createHumee.clickLinkIcon(humeeRole);
+
         // Get the conversation link from the humee
         const humeeLink = await createHumee.getHumeeLink();
 
@@ -58,6 +61,9 @@ test.describe('Conversation Test', () => {
 
         // Switch back to parent class
         await conversation.switchBackToParentPage();
+
+        // Close popup
+        await createHumee.closeCopyLinkPopup();
 
     });
 
@@ -104,9 +110,12 @@ test.describe('Conversation Test', () => {
         // Switch back to parent class
         await conversation.switchBackToParentPage();
 
+        // Close popup
+        await createHumee.closeCopyLinkPopup();
+
     });
 
-    test.only('Connect conversation using LinkedIn QR', async ({ page }) => {
+    test('Connect conversation using LinkedIn QR', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -129,7 +138,7 @@ test.describe('Conversation Test', () => {
         await createHumee.clickLinkedInBanner();
 
         // Scan the QR and get the URL from the LinkedIn Banner, passing the path where image is stored
-        const humeeLink = await createHumee.getLinkedInImageURL("tests/utils/uploadfiles");
+        const humeeLink = await createHumee.getLinkedInImageURL();
 
         // Connect with the call in Humee
         await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
@@ -151,6 +160,9 @@ test.describe('Conversation Test', () => {
 
         // Switch back to parent class
         await conversation.switchBackToParentPage();
+
+        // Close popup
+        await createHumee.closeCopyLinkPopup();
 
     });
 
@@ -177,10 +189,10 @@ test.describe('Conversation Test', () => {
         await createHumee.clickEmailSignature();
 
         // Verify Info in Email Signature
-        await createHumee.verifyEmailSignature("HumeeNameEditted-", "Software Test Engineer", )
+        await createHumee.verifyEmailSignature("HumeeNameEditted-", "Software Test Engineer", "HumeeCompanyEditted-1770297852", "+91 (998) 889-9988", "HumeeAddressB1770297852887", "ydtest222@gmail.com", "www.humee.com/v2")
 
-        // Scan the QR and get the URL from the LinkedIn Banner, passing the path where image is stored
-        const humeeLink = await createHumee.getLinkedInImageURL("tests/utils/uploadfiles");
+        // Scan the QR and get the URL from the Email Signature
+        const humeeLink = await createHumee.getEmailSignQRURL();
 
         // Connect with the call in Humee
         await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
@@ -202,6 +214,9 @@ test.describe('Conversation Test', () => {
 
         // Switch back to parent class
         await conversation.switchBackToParentPage();
+
+        // Close popup
+        await createHumee.closeCopyLinkPopup();
 
     });
 

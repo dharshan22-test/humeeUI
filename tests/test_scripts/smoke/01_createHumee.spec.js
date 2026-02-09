@@ -1,0 +1,69 @@
+const { test } = require('@playwright/test');
+const { createHumeeSection } = require('../../pages/createHumeeSection');
+
+test.describe('create Humee', () => {
+
+    test('Create Humee with mandatory fields', async ({ page }) => {
+
+        const createHumee = new createHumeeSection(page);
+
+        const timeStamp = Date.now();
+        const humeeName = `HumeeNA${timeStamp}`;
+        const humeeRole = `HumeeRA${timeStamp}`;
+        const systemPrompt = "You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
+        const humeeContext = "Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.";
+
+        process.env.HUMEE_NAME = humeeName;
+        process.env.HUMEE_ROLE = humeeRole;
+        process.env.SYSTEM_PROMPT = systemPrompt;
+        process.env.HUMEE_CONTEXT = humeeContext;
+
+
+        // Go to Dashboard
+        await page.goto('/dashboard');
+
+        // Select required Twin
+        await createHumee.selectRequiredTwin("Twin-1764752031504");
+
+        // Enter Humee Name
+        await createHumee.enterHumeeName(humeeName);
+
+        // Enter Humee Role
+        await createHumee.enterHumeeRole(humeeRole);
+
+        // Enter system prompt
+        await createHumee.enterSystemPrompt(systemPrompt);
+
+        // Enter Humee context
+        await createHumee.enterHumeeContext(humeeContext);
+
+        // click create humee
+        await createHumee.clickCreateHumee();
+
+        // Go to Widget
+        await createHumee.clickWidget();
+
+        // Click configure widget
+        await createHumee.configureWidget();
+
+        // Enter Greetings Message
+        await createHumee.enterGreetingMessage("Hi");
+
+        // Click Generate Button
+        await createHumee.clickGenerateButton();
+
+        // Verify Created Humee
+        await createHumee.verifyCreatedHumee(humeeRole);
+
+        // Verify Humee Role is in complete status
+        await createHumee.verifyHumeeStatus(humeeRole);
+
+        // Click Edit Icon
+        await createHumee.clickEditIcon(humeeRole);
+
+        // Verify Humee Info
+        await createHumee.verifyHumeeInfo("Twin 1764752031504", humeeName, humeeRole, systemPrompt, humeeContext);
+
+    });
+
+});
