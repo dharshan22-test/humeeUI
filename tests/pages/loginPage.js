@@ -10,6 +10,11 @@ exports.loginPage = class LoginPage{
         this.page = page;
     }
 
+    // Verify login page is displayed
+    async verifyLoginPage(){
+        await expect(this.page.locator("div[class='country-selector']")).toBeVisible();
+    }
+
     // Select Country Code
     async selectCountryCode(countryCode){
         await this.page.locator("div[class='country-selector']").click();

@@ -1,6 +1,6 @@
 const { test } = require('@playwright/test');
-const { createHumeeSection } = require('../../pages/createHumeeSection');
-const { humeeConversation } = require('../../pages/humeeConversation');
+const { createHumeeSection } = require('../../../pages/createHumeeSection');
+const { humeeConversation } = require('../../../pages/humeeConversation');
 
 const fs = require('fs');
 const path = require('path');

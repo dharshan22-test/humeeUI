@@ -47,11 +47,11 @@ class QrDecoder {
   decodeQRCodeFromImage(imagePath) {
     const png = PNG.sync.read(fs.readFileSync(imagePath));
 
-    // 1️⃣ Try full image
+    // Try full image
     let code = this.decodeFromPng(png);
     if (code) return code.data;
 
-    // 2️⃣ Fallback regions (relative positions)
+    // Fallback regions (relative positions)
     const regions = [
       // top-right
       { x: png.width * 0.65, y: 0, width: png.width * 0.35, height: png.height * 0.5 },

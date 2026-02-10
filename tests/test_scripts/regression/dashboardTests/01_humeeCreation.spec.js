@@ -1,5 +1,5 @@
 const { test } = require('@playwright/test');
-const { createHumeeSection } = require('../../pages/createHumeeSection');
+const { createHumeeSection } = require('../../../pages/createHumeeSection');
 
 const fs = require('fs');
 const path = require('path');

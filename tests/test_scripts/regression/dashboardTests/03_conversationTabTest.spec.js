@@ -1,7 +1,7 @@
 const { test } = require('@playwright/test');
-const { createHumeeSection } = require('../../pages/createHumeeSection');
-const { humeeConversation } = require('../../pages/humeeConversation');
-const { conversationPage } = require('../../pages/conversationPage');
+const { createHumeeSection } = require('../../../pages/createHumeeSection');
+const { humeeConversation } = require('../../../pages/humeeConversation');
+const { conversationPage } = require('../../../pages/conversationPage');
 
 const dayjs = require('dayjs');
 const formattedDate = dayjs().format('MM-DD-YYYY');

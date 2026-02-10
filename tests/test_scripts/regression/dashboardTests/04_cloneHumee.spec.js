@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { createHumeeSection } = require('../../pages/createHumeeSection');
+const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const timeStamp = Date.now();
 
 const fs = require('fs');
