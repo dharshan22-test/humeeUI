@@ -2,9 +2,17 @@ const { test, expect } = require('@playwright/test');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 const timeStamp = Date.now();
 
-const humeeRole = process.env.HUMEE_ROLE;
-const systemPrompt = "Yes, You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
-const humeeContext = "Yes, Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.";
+const fs = require('fs');
+const path = require('path');
+const { pad } = require('crypto-js');
+const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+
+const humeeData = JSON.parse(
+    fs.readFileSync(dataPath, 'utf-8')
+);
+
+const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, editHumeeCompany, humeeAddress } = humeeData;
+
 const cloneHumeeName = `CloneNa${timeStamp}`;
 const cloneHumeeRole = `CloneR${timeStamp}`;
 const emailAddress = "ydtest223@gmail.com";
@@ -17,26 +25,26 @@ test.describe("Edit Widget Icon", () => {
         // Go to Dashboard
         await page.goto('/dashboard');
 
-        // // Click link icon of required Humee
-        // await createHumee.clickCloneIcon(humeeRole);
+        // Click link icon of required Humee
+        await createHumee.clickCloneIcon(editHumeeRole);
 
-        // // Enter Widget Name and Widget Role
-        // await createHumee.enterHumeeName(cloneHumeeName);
+        // Enter Widget Name and Widget Role
+        await createHumee.enterHumeeName(cloneHumeeName);
 
-        // // Enter Humee widget
-        // await createHumee.enterHumeeRole(cloneHumeeRole);
+        // Enter Humee widget
+        await createHumee.enterHumeeRole(cloneHumeeRole);
 
-        // // Click clone button
-        // await createHumee.clickUpdateHumee();
+        // Click clone button
+        await createHumee.clickUpdateHumee();
 
-        // // Wait until process become completed
-        // await createHumee.verifyHumeeStatus(cloneHumeeRole);
+        // Wait until process become completed
+        await createHumee.verifyHumeeStatus(cloneHumeeRole);
 
         // Click Edit Icon
-        await createHumee.clickEditIcon("CloneR1770638338720");
+        await createHumee.clickEditIcon(cloneHumeeRole);
 
         // Verify Humee Info
-        await createHumee.verifyHumeeInfo("Twin 1764752031504", "CloneNa1770638338720", "CloneR1770638338720", systemPrompt, humeeContext);
+        await createHumee.verifyHumeeInfo( twinNameWOHypen, cloneHumeeName, cloneHumeeRole, editSystemPrompt, editHumeeContext);
 
         // Click Skip button
         await createHumee.clickSkipButton();
@@ -61,7 +69,7 @@ test.describe("Edit Widget Icon", () => {
         await createHumee.clickClose();
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon("CloneR1770638338720");
+        await createHumee.clickLinkIcon(cloneHumeeRole);
 
         // Clicked LinkedIn Banner
         await createHumee.clickLinkedInBanner();
@@ -74,6 +82,6 @@ test.describe("Edit Widget Icon", () => {
         await createHumee.clickEmailSignature();
 
         // Verify Info in Email Signature
-        await createHumee.verifyEmailSignature("HumeeNameEditted-", "Software Test Engineer", "HumeeCompanyEditted-1770297852", "+91 (998) 889-9988", "HumeeAddressB1770297852887", "ydtest222@gmail.com", "www.humee.com/v2");
+        await createHumee.verifyEmailSignature("HumeeNameEditted", "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", "www.humee.com/v2");
     });
 });

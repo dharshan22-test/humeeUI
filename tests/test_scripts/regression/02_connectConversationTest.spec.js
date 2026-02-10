@@ -2,22 +2,25 @@ const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 const { humeeConversation } = require('../../pages/humeeConversation');
 
-const humeeName = process.env.HUMEE_NAME;
-const humeeRole = process.env.HUMEE_ROLE;
-const humeeType = process.env.HUMEE_TYPE;
-const humeeDescription = process.env.HUMEE_DESCRIPTION;
+const fs = require('fs');
+const path = require('path');
+const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+
+const humeeData = JSON.parse(
+    fs.readFileSync(dataPath, 'utf-8')
+);
+
+const { humeeName, editHumeeRole, widgetTitle, widgetDescription, editHumeeCompany, editHumeeSignatureName, humeeAddress } = humeeData;
 
 const introText = "Hi, How can I help you";
 const nameQuestion = "What is your name?";
 const nameAnswer = humeeName;
-// const questionTwo = "Tell me about your self"
-// const answerTwo = "Software Tester"
 const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
 const emailSubject = "This is for test purpsoe";
 const message = "This is for test purpose, If you got this message, which means you are an alien";
 
-test.describe('Conversation Test', () => {
+test.describe.serial('Conversation Test', () => {
 
     test('Connect conversation using link', async ({ page }) => {
 
@@ -33,16 +36,16 @@ test.describe('Conversation Test', () => {
         await page.goto('/dashboard');
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(humeeRole);
+        await createHumee.verifyCreatedHumee(editHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(humeeRole);
+        await createHumee.clickLinkIcon(editHumeeRole);
 
         // Get the conversation link from the humee
         const humeeLink = await createHumee.getHumeeLink();
 
         // Connect with the call in Humee
-        await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
+        await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
 
         // Verify call is started
         await conversation.verifyCallStarted();
@@ -81,16 +84,16 @@ test.describe('Conversation Test', () => {
         await page.goto('/dashboard');
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(humeeRole);
+        await createHumee.verifyCreatedHumee(editHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(humeeRole);
+        await createHumee.clickLinkIcon(editHumeeRole);
 
         // Get the conversation link from the humee
         const humeeLink = await createHumee.getQrUrlFromCanvas();
 
         // Connect with the call in Humee
-        await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
+        await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
 
         // Verify call is started
         await conversation.verifyCallStarted();
@@ -129,10 +132,10 @@ test.describe('Conversation Test', () => {
         await page.goto('/dashboard');
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(humeeRole);
+        await createHumee.verifyCreatedHumee(editHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(humeeRole);
+        await createHumee.clickLinkIcon(editHumeeRole);
 
         // Clicked LinkedIn Banner
         await createHumee.clickLinkedInBanner();
@@ -141,7 +144,7 @@ test.describe('Conversation Test', () => {
         const humeeLink = await createHumee.getLinkedInImageURL();
 
         // Connect with the call in Humee
-        await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
+        await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
 
         // Verify call is started
         await conversation.verifyCallStarted();
@@ -180,22 +183,22 @@ test.describe('Conversation Test', () => {
         await page.goto('/dashboard');
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(humeeRole);
+        await createHumee.verifyCreatedHumee(editHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(humeeRole);
+        await createHumee.clickLinkIcon(editHumeeRole);
 
         // Clicked Email Signature
         await createHumee.clickEmailSignature();
 
         // Verify Info in Email Signature
-        await createHumee.verifyEmailSignature("HumeeNameEditted-", "Software Test Engineer", "HumeeCompanyEditted-1770297852", "+91 (998) 889-9988", "HumeeAddressB1770297852887", "ydtest222@gmail.com", "www.humee.com/v2")
+        await createHumee.verifyEmailSignature(editHumeeSignatureName, "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", "www.humee.com/v2")
 
         // Scan the QR and get the URL from the Email Signature
         const humeeLink = await createHumee.getEmailSignQRURL();
 
         // Connect with the call in Humee
-        await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
+        await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
 
         // Verify call is started
         await conversation.verifyCallStarted();

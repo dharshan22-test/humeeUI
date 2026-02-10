@@ -15,8 +15,6 @@ exports.settingsPopup = class settingsPopup {
         await this.page.locator("div.profile-container").click();
         await this.page.locator("button.settings-btn").click();
         await expect(this.page.locator("//div[@class='settings-modal-header']/h2[text()='Profile Settings']")).toBeVisible(); 
-    }
-
-    
+    }    
 
 }

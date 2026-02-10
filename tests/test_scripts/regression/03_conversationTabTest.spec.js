@@ -3,10 +3,18 @@ const { createHumeeSection } = require('../../pages/createHumeeSection');
 const { humeeConversation } = require('../../pages/humeeConversation');
 const { conversationPage } = require('../../pages/conversationPage');
 
-const humeeName = process.env.HUMEE_NAME;
-const humeeRole = process.env.HUMEE_ROLE;
-const humeeType = process.env.HUMEE_TYPE;
-const humeeDescription = process.env.HUMEE_DESCRIPTION;
+const dayjs = require('dayjs');
+const formattedDate = dayjs().format('MM-DD-YYYY');
+
+const fs = require('fs');
+const path = require('path');
+const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+
+const humeeData = JSON.parse(
+    fs.readFileSync(dataPath, 'utf-8')
+);
+
+const { twinName, humeeName, editHumeeRole, widgetTitle, widgetDescription } = humeeData;
 
 const introText = "Hi, How can I help you";
 const nameQuestion = "What is your name?";
@@ -31,17 +39,20 @@ test.describe("Tests in Conversation Tab", () => {
         // Go to Dashboard
         await page.goto('/dashboard');
 
+        // Get IP address
+        const ip = await convPage.getPublicIp();
+
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(humeeRole);
+        await createHumee.verifyCreatedHumee(editHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(humeeRole);
+        await createHumee.clickLinkIcon(editHumeeRole);
 
         // Get the conversation link from the humee
         const humeeLink = await createHumee.getHumeeLink();
 
         // Connect with the call in Humee
-        await conversation.connectToCallWithLink(humeeLink, humeeType, humeeDescription);
+        await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
 
         // Verify call is started
         await conversation.verifyCallStarted();
@@ -56,7 +67,7 @@ test.describe("Tests in Conversation Tab", () => {
         await convPage.gotoConversation();
 
         // Verify all the info in conversation table
-        await convPage.verifyConversationTable(humeeName, "02-09-2026", "N/A", "N/A", "N/A", "43.252.93.236", "active");
+        await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", ip, "active");
 
         // Click logo
         await createHumee.clickLogo();
@@ -74,16 +85,16 @@ test.describe("Tests in Conversation Tab", () => {
         await convPage.gotoConversation();
 
         // Verify all the info in conversation table
-        await convPage.verifyConversationTable(humeeName, "02-09-2026", "N/A", "N/A", "N/A", "43.252.93.236", "ended");
+        await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", ip, "ended");
 
         // Open the conversatio
-        await convPage.openConversation("02-09-2026", "HumeeN1770297852887");
+        await convPage.openConversation(formattedDate, humeeName);
 
         // Verify conversation ID is an integer only
         await convPage.verifyConvId();
 
         // Verify the info in conversatio page
-        await convPage.verifyConversationDetails("General conversation", "HumeeN1770297852887", "Twin-1764752031504", "43.252.93.236", "ended", "02-09-2026");
+        await convPage.verifyConversationDetails("General conversation", humeeName, twinName, ip, "ended", formattedDate);
 
         // Verifying conversation transcript
         await convPage.verifyConvText(humeeName);
@@ -93,6 +104,9 @@ test.describe("Tests in Conversation Tab", () => {
 
         // Go to to Conversation list table
         await convPage.clickBackButton();
+
+        // Enter humee name in search input
+        await convPage.enterConversationSearch(humeeName);
 
         // Verify search is working as expected
         await convPage.verifySearchFunction(humeeName);

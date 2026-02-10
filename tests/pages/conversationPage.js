@@ -1,5 +1,11 @@
 const { expect } = require('@playwright/test');
 
+async function getPublicIp() {
+    const res = await fetch('https://api.ipify.org?format=json');
+    const { ip } = await res.json();
+    return ip;
+}
+
 exports.conversationPage = class coversationPage {
 
     /**
@@ -42,7 +48,7 @@ exports.conversationPage = class coversationPage {
     async verifyConvId() {
         await expect(this.page.locator("//span[@class='detail-value-convo' and text()='Twin-1764752031504']")).toBeVisible();
         const convID = await this.page.locator("//div[@class='chat-history-sidebar']/div/div/span[text()='ID:']/following-sibling::span").textContent();
-        console.log("convID",convID);
+        console.log("convID", convID);
         await expect(this.page.locator(`//span[contains(@class,'conversation-id-header') and contains(normalize-space(.),'${convID}')]`)).toBeVisible();
     }
 
@@ -97,6 +103,11 @@ exports.conversationPage = class coversationPage {
             await expect(this.page.locator(`(//div[@class='table-cell persona_name'])[${i}]`)).toContainText(humeeName);
         }
 
+    }
+
+    // Getting the ip address
+    async getPublicIp() {
+        return await getPublicIp();
     }
 
 }

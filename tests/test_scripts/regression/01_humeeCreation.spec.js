@@ -1,13 +1,20 @@
 const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 
+const fs = require('fs');
+const path = require('path');
+const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+
 const timeStamp = Date.now();
 
 // All humee data
+const twinName = "Twin-1764752031504";
+const twinNameWOHypen = "Twin 1764752031504";
+
 const humeeName = `HumeeN${timeStamp}`;
 
 const humeeRole = `HumeeR${timeStamp}`;
-const editHumeeRole = `HumeeRoleEditted-${timeStamp}`;
+const editHumeeRole = `Humee RoleEditted-${timeStamp}`;
 
 const systemPrompt = "You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
 const editSystemPrompt = "Yes, You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
@@ -16,7 +23,7 @@ const humeeContext = "Your goal is to help users identify defects, improve test 
 const editHumeeContext = "Yes, Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.";
 
 const humeeCompany = `HumeeC${timeStamp}`;
-const editHumeeCompany = `HumeeCompanyEditted-${timeStamp}`;
+const editHumeeCompany = `HumeeCE-${timeStamp}`;
 
 const humeeIntroMsg = `Hi welcome to ${humeeRole}, click connect now button to get started`;
 const humeeIntroMsgEditted = `Hi welcome to New ${humeeRole}, click connect now button to get started`;
@@ -25,7 +32,7 @@ const tagLine = `TagLine-${timeStamp}`;
 const tagLineEditted = `TagLine-${timeStamp}-New`;
 
 const emailAddress = "ydtest22@gmail.com"
-const editHumeeSignatureName = `HumeeNameEditted-${timeStamp}`;
+const editHumeeSignatureName = `HumeeNameEditted`;
 const humeeAddress = `HumeeAddressB${timeStamp}`;
 
 // Widget Data
@@ -43,13 +50,46 @@ const companyLogoTwo = "tests/utils/uploadfiles/pngFileTwo.png";
 const knowledgeBaseDocPath = "tests/utils/uploadfiles/docFile.docx";
 const knowledgeBasePDFPath = "tests/utils/uploadfiles/pdfFile.pdf";
 
-test.describe('create Humee', () => {
+test.describe.serial('create Humee', () => {
+
+    test('Storing all Humee fields', async ({}) => {
+        // Storing data in JSON file (which is in utils > testData > humeeNames.json)
+        fs.writeFileSync(
+            dataPath,
+            JSON.stringify(
+                {
+                    twinName,
+                    twinNameWOHypen,
+                    humeeName,
+                    humeeRole,
+                    editHumeeRole,
+                    systemPrompt,
+                    editSystemPrompt,
+                    humeeContext,
+                    editHumeeContext,
+                    humeeCompany,
+                    editHumeeCompany,
+                    humeeIntroMsg,
+                    humeeIntroMsgEditted,
+                    tagLine,
+                    tagLineEditted,
+                    emailAddress,
+                    editHumeeSignatureName,
+                    humeeAddress,
+                    widgetTitle,
+                    widgetDescription,
+                    widgetColor
+                },
+                null,
+                2
+            )
+        );
+    })
 
     test('Create Humee with mandatory fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
 
-        const timeStamp = Date.now();
         const humeeName = `HumeeNA${timeStamp}`;
         const humeeRole = `HumeeRA${timeStamp}`;
 
@@ -57,7 +97,7 @@ test.describe('create Humee', () => {
         await page.goto('/dashboard');
 
         // Select required Twin
-        await createHumee.selectRequiredTwin("Twin-1764752031504");
+        await createHumee.selectRequiredTwin(twinName);
 
         // Enter Humee Name
         await createHumee.enterHumeeName(humeeName);
@@ -108,7 +148,7 @@ test.describe('create Humee', () => {
         await page.goto('/dashboard');
 
         // Select required Twin
-        await createHumee.selectRequiredTwin("Twin-1764752031504");
+        await createHumee.selectRequiredTwin(twinName);
 
         // Enter Humee Name
         await createHumee.enterHumeeName(humeeName);

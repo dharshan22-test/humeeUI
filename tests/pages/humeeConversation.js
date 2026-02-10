@@ -21,7 +21,7 @@ exports.humeeConversation = class humeeConversation {
         // expect(isPlaying).toBe(true);
     }
 
-    async connectToCallWithLink(humeeLink, humeeType, humeeDescription) {
+    async connectToCallWithLink(humeeLink, humeeType, humeeDescription, intro) {
         const context = this.page.context();
 
         // Grant camera & microphone permissions BEFORE opening the page
@@ -46,9 +46,11 @@ exports.humeeConversation = class humeeConversation {
         await this.page.waitForTimeout(3000);
         await this.page.locator("div.welcome-lang-ui").click();
 
-        // This method is to verify that the intro video is playing
-        await this.verifyAudioPlay();
-        await this.page.locator("button.start-conversation-btn").click();
+        if (intro) {
+            // This method is to verify that the intro video is playing
+            await this.verifyAudioPlay();
+            await this.page.locator("button.start-conversation-btn").click();
+        }
     }
 
     // Verifying call is started

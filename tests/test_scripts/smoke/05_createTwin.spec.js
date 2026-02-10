@@ -10,7 +10,7 @@ test.describe("Smoke Test - Create Twin", () => {
         await page.goto('/dashboard');
 
         // Click link icon of required Humee
-        await twin.gotoConversation();
+        await twin.gotoCreateTwin();
 
     });
 });
