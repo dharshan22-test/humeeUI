@@ -1,4 +1,5 @@
 const { expect } = require('@playwright/test');
+const {authentication} = require('./authentication'); 
 
 exports.loginPage = class LoginPage{
 
@@ -8,6 +9,17 @@ exports.loginPage = class LoginPage{
 
     constructor(page){
         this.page = page;
+    }
+
+    // Login into Application
+    async login(phoneNumber){
+        await this.page.goto('/dashboard');
+        try{
+           await expect(this.page.locator("img.header-logo")).toBeVisible({timeout:3000});    
+        } catch{
+            await authentication(this.page,phoneNumber);
+            await expect(this.page.locator("img.header-logo")).toBeVisible();    
+        }
     }
 
     // Verify login page is displayed

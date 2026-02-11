@@ -1,11 +1,12 @@
 const { test, expect } = require('@playwright/test');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
+const {loginPage} = require('../../../pages/loginPage');
 const timeStamp = Date.now();
 
 const fs = require('fs');
 const path = require('path');
-const { pad } = require('crypto-js');
-const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+const dataPath = path.join(__dirname, '../../../utils/testData/humeeNames.json');
+const userPhoneNumber = "8622595064";
 
 const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
@@ -21,9 +22,10 @@ test.describe("Edit Widget Icon", () => {
     test("Click Edit Widget Icon and verify edit widget page opened correctly", async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(userPhoneNumber)
 
         // Click link icon of required Humee
         await createHumee.clickCloneIcon(editHumeeRole);

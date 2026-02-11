@@ -1,6 +1,7 @@
 const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 const { humeeConversation } = require('../../pages/humeeConversation');
+const {loginPage} = require('../../pages/loginPage');
 
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +12,7 @@ const humeeData = JSON.parse(
 );
 
 const { humeeName, humeeRole, introText } = humeeData;
-
+const phoneNumber = "8622595064";
 const nameQuestion = "What is your name?";
 const nameAnswer = humeeName;
 
@@ -21,6 +22,8 @@ test.describe('Conversation Test', () => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
+        const login = new loginPage(page);
+
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
@@ -28,7 +31,7 @@ test.describe('Conversation Test', () => {
         );
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Verify Humee is displayed in the page
         await createHumee.verifyCreatedHumee(humeeRole);

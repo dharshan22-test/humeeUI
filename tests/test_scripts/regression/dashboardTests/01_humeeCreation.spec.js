@@ -1,9 +1,11 @@
 const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
+const { loginPage } = require('../../../pages/loginPage');
 
 const fs = require('fs');
 const path = require('path');
-const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+const dataPath = path.join(__dirname, '../../../utils/testData/humeeNames.json');
+const phoneNumber = "8622595064";
 
 const timeStamp = Date.now();
 
@@ -52,7 +54,7 @@ const knowledgeBasePDFPath = "tests/utils/uploadfiles/pdfFile.pdf";
 
 test.describe.serial('create Humee', () => {
 
-    test('Storing all Humee fields', async ({}) => {
+    test('Storing all Humee fields', async ({ }) => {
         // Storing data in JSON file (which is in utils > testData > humeeNames.json)
         fs.writeFileSync(
             dataPath,
@@ -89,12 +91,14 @@ test.describe.serial('create Humee', () => {
     test('Create Humee with mandatory fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
+
 
         const humeeName = `HumeeNA${timeStamp}`;
         const humeeRole = `HumeeRA${timeStamp}`;
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Select required Twin
         await createHumee.selectRequiredTwin(twinName);
@@ -143,9 +147,11 @@ test.describe.serial('create Humee', () => {
     test('Create Humee with all fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
+
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Select required Twin
         await createHumee.selectRequiredTwin(twinName);
@@ -261,9 +267,10 @@ test.describe.serial('create Humee', () => {
     test('Edit Humee with basic fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Click Edit Icon
         await createHumee.clickEditIcon(humeeRole);
@@ -307,9 +314,11 @@ test.describe.serial('create Humee', () => {
     test('Edit Humee Widget Fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
+
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Click Edit Icon
         await createHumee.clickEditIcon(editHumeeRole);

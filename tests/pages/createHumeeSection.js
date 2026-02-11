@@ -236,7 +236,7 @@ exports.createHumeeSection = class createHumeeSection {
     // Write Job Title in Email Signature 
     async emailSignatureJobTitle(jobTitle) {
         await this.page.locator("input#jobTitle").clear();
-        await this.page.locator("input#jobTitle").pressSequentially(jobTitle)
+        await this.page.locator("input#jobTitle").fill(jobTitle)
     }
 
     // Write email address in Email Signature 

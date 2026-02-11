@@ -1,16 +1,18 @@
 const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
+const {loginPage} = require('../../pages/loginPage');
 
 const fs = require('fs');
 const path = require('path');
 const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
-
+const phoneNumber = "8622595064";
 
 test.describe('create Humee', () => {
 
     test('Create Humee with mandatory fields', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
+        const login = new loginPage(page);
 
         const timeStamp = Date.now();
         const humeeName = `HumeeNA${timeStamp}`;
@@ -22,7 +24,7 @@ test.describe('create Humee', () => {
         const introText = "Hi, How can I help you";
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(phoneNumber)
 
         // Select required Twin
         await createHumee.selectRequiredTwin(humeeTwin);

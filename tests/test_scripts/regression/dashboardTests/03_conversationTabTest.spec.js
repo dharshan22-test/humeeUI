@@ -2,13 +2,14 @@ const { test } = require('@playwright/test');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { humeeConversation } = require('../../../pages/humeeConversation');
 const { conversationPage } = require('../../../pages/conversationPage');
+const {loginPage} = require('../../../pages/loginPage');
 
 const dayjs = require('dayjs');
 const formattedDate = dayjs().format('MM-DD-YYYY');
 
 const fs = require('fs');
 const path = require('path');
-const dataPath = path.join(__dirname, '../../utils/testData/humeeNames.json');
+const dataPath = path.join(__dirname, '../../../utils/testData/humeeNames.json');
 
 const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
@@ -23,6 +24,7 @@ const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
 const emailSubject = "This is for test purpsoe";
 const message = "This is for test purpose, If you got this message, which means you are an alien";
+const userPhoneNumber = "8622595064";
 
 test.describe("Tests in Conversation Tab", () => {
     test("open not ended conversation and verify conversation table", async ({ page }) => {
@@ -30,6 +32,7 @@ test.describe("Tests in Conversation Tab", () => {
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
         const convPage = new conversationPage(page);
+        const login = new loginPage(page);
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
@@ -37,7 +40,7 @@ test.describe("Tests in Conversation Tab", () => {
         );
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(userPhoneNumber)
 
         // Get IP address
         const ip = await convPage.getPublicIp();

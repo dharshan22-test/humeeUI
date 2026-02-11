@@ -14,75 +14,75 @@ exports.usagePage = class usagePage {
     async gotoUsage() {
         await this.page.locator("div.profile-container").click();
         await this.page.locator("button.usage-btn").click();
-        await expect(this.page.locator("div.usage-dashboard-header-content>h1").filter({hasText:"Usage Dashboard"})).toBeVisible(); 
+        await expect(this.page.locator("div.usage-dashboard-header-content>h1").filter({ hasText: "Usage Dashboard" })).toBeVisible();
     }
 
     // Verify Active Users  Count
-    async verifyActiveUsersCount(usageCount){
+    async verifyActiveUsersCount(usageCount) {
         const usageCountLocator = "div.usage-dashboard-header-content>div[class='usage-concurrent-users clickable']>span";
         await expect(this.page.locator(usageCountLocator)).toHaveText(usageCount);
     }
 
     // Verify Plan Name
-    async verifyPlanName(planName){
+    async verifyPlanName(planName) {
         await this.page.locator("div.usage-subscription-info>span").toHaveText(planName);
     }
 
     // Verify Count any actions for any card in usage section
-    async getCount(cardName, cardAction){
+    async getCount(cardName, cardAction) {
         const cardLocator = `//div/h3[text()='${cardName}']/../../div[@class='usage-chart-content']//span[text()='${cardAction}:']/following-sibling::span`;
-        const cardText =  await this.page.locator(cardLocator).textContent();
+        const cardText = await this.page.locator(cardLocator).textContent();
         console.log(cardText);
         return cardText;
     }
 
     // Get Twin Count
-    async getTwinCount(){
+    async getTwinCount() {
         const twinLocator = "//div/h3[text()='Humee twin']/../../div[@class='usage-chart-content']//span[@class='usage-stat-value']";
         const twinCount = await this.page.locator(twinLocator).textContent();
         return twinCount;
     }
 
     // Click buy more button for any card in usage section
-    async clickBuyMoreButton(cardName){
+    async clickBuyMoreButton(cardName) {
         const buyMoreButtonLocator = `//div/h3[text()='${cardName}']/../../div[@class='usage-chart-actions']/button`;
         await this.page.locator(buyMoreButtonLocator).click();
     }
 
     // Verify Content in buymore popup
-    async verifyBuyMore(heading, count){
+    async verifyBuyMore(heading, count) {
         await expect(this.page.locator("div.purchase-modal-header>h2")).toHaveText(heading);
         await expect(this.page.locator("div.feature-usage-info>div>p")).toHaveText(count);
 
     }
 
     // Click decrease quantity
-    async clickDecreaseQuanity(decreaseBy){
-        
+    async clickDecreaseQuanity(decreaseBy) {
+
         const initialQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
         await this.page.locator("div.quantity-controls>button[aria-label='Decrease quantity']").click();
         await this.page.waitForTimeout(1000); // not instantaneous so giving 1 secs 
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
-        await expect(this.page.locator("div.price-row>span").filter({hasText:finalQuantity})).toBeVisible();
-        console.log("initial Quantity ",initialQuantity);
+        await expect(this.page.locator("div.price-row>span").filter({ hasText: finalQuantity })).toBeVisible();
+        console.log("initial Quantity ", initialQuantity);
         console.log("final quantity ", finalQuantity);
 
-        expect(Number(finalQuantity)).toEqual(Number(initialQuantity)-Number(decreaseBy));
+        expect(Number(finalQuantity)).toEqual(Number(initialQuantity) - Number(decreaseBy));
     }
 
     // Click Increase quantity
-    async clickIncreaseQuanity(increaseBy){
-        
+    async clickIncreaseQuanity(increaseBy) {
+
         const initialQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
         await this.page.locator("div.quantity-controls>button[aria-label='Increase quantity']").click();
         await this.page.waitForTimeout(1000); // not instantaneous so giving 1 secs 
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
-        await expect(this.page.locator("div.price-row>span").filter({hasText:finalQuantity})).toBeVisible();
+        await expect(this.page.locator("div.price-row>span").filter({ hasText: finalQuantity })).toBeVisible();
 
-        console.log("initial Quantity ",initialQuantity);
+        console.log("initial Quantity ", initialQuantity);
         console.log("final quantity ", finalQuantity);
 
-        expect(Number(finalQuantity)).toEqual(Number(initialQuantity)+Number(increaseBy));
+        expect(Number(finalQuantity)).toEqual(Number(initialQuantity) + Number(increaseBy));
     }
 
     // Verify card calculation value is showing correctly
@@ -126,7 +126,6 @@ exports.usagePage = class usagePage {
 
     // click purchase button
     async clickPurchase(totalValue) {
-        await this.page.pause();
         await expect(this.page.locator("button[title='Proceed to checkout']")).toContainText(totalValue);
         await this.page.locator("button[title='Proceed to checkout']").click();
     }
@@ -153,12 +152,25 @@ exports.usagePage = class usagePage {
     }
 
 
+    /**
+     * Validates that conversation minutes increased by expected minutes
+     * @param {string} initialTime - e.g. "29h 15m"
+     * @param {string} finalTime - e.g. "25h 20m"
+     * @param {number} increment - minutes to be added (e.g. 5)
+     */
+    async validateConversationMinutesIncrement(initialTime, finalTime, increment) {
+        const extract = (time) => {
+            const h = time.match(/(\d+)h/);
+            const m = time.match(/(\d+)m/);
+            return (h ? parseInt(h[1]) * 60 : 0) + (m ? parseInt(m[1]) : 0);
+        };
 
+        const initialTotal = extract(initialTime);
+        const finalTotal = extract(finalTime);
 
+        console.log(initialTime, finalTime, increment)
+        expect(finalTotal).toBe(initialTotal + increment);
+    }
 
-
-
-
-    
 
 }

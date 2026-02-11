@@ -1,23 +1,9 @@
 {
-  "twinName": "Twin-1764752031504",
-  "twinNameWOHypen": "Twin 1764752031504",
-  "humeeName": "HumeeN1770721105458",
-  "humeeRole": "HumeeR1770721105458",
-  "editHumeeRole": "Humee RoleEditted-1770721105458",
+  "humeeName": "HumeeNA1770811535774",
+  "humeeRole": "HumeeRA1770811535774",
+  "humeeTwin": "Twin-1764752031504",
+  "humeeTwinWOHypen": "Twin 1764752031504",
   "systemPrompt": "You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.",
-  "editSystemPrompt": "Yes, You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.",
   "humeeContext": "Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.",
-  "editHumeeContext": "Yes, Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.",
-  "humeeCompany": "HumeeC1770721105458",
-  "editHumeeCompany": "HumeeCE-1770721105458",
-  "humeeIntroMsg": "Hi welcome to HumeeR1770721105458, click connect now button to get started",
-  "humeeIntroMsgEditted": "Hi welcome to New HumeeR1770721105458, click connect now button to get started",
-  "tagLine": "TagLine-1770721105458",
-  "tagLineEditted": "TagLine-1770721105458-New",
-  "emailAddress": "ydtest22@gmail.com",
-  "editHumeeSignatureName": "HumeeNameEditted",
-  "humeeAddress": "HumeeAddressB1770721105458",
-  "widgetTitle": "Title-1770721105458",
-  "widgetDescription": "Description-1770721105458",
-  "widgetColor": "#f6ea3b"
+  "introText": "Hi, How can I help you"
 }

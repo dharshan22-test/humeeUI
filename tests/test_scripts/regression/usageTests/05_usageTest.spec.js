@@ -3,6 +3,8 @@ const { usagePage } = require('../../../pages/usage');
 const { stripePage } = require('../../../pages/stripePage');
 const { loginPage } = require('../../../pages/loginPage');
 
+const userPhoneNumber = "8622595064";
+
 test.describe("Usage page Tests", () => {
     test("Purchasing Conversation minutes", async ({ page }) => {
 
@@ -11,13 +13,14 @@ test.describe("Usage page Tests", () => {
         const login = new loginPage(page);
 
         // Go to Dashboard
-        await page.goto('/dashboard');
+        await login.login(userPhoneNumber)
 
         // Go to Usage Section
         await usage.gotoUsage();
 
         // Get Allowed Conversation Minutes count
         const initialConvMins = await usage.getCount("Conversational minutes per month", "Allowed");
+        console.log("initial conv mins", initialConvMins);
 
         // Click buy more button
         await usage.clickBuyMoreButton("Conversational minutes per month");
@@ -47,7 +50,7 @@ test.describe("Usage page Tests", () => {
         await login.verifyLoginPage();
 
         // Go to dashboard again
-        await page.goto('/dashboard');
+        await login.login(userPhoneNumber)
 
         // Go to Usage
         await usage.gotoUsage();
@@ -55,7 +58,8 @@ test.describe("Usage page Tests", () => {
         // Get Allowed Conversation Minutes count
         const finalConvMins = await usage.getCount("Conversational minutes per month", "Allowed");
 
-        expect(finalConvMins).toEqual(initialConvMins + 5);
+        // Verify Converssation mins is increased 
+        await usage.validateConversationMinutesIncrement(initialConvMins, finalConvMins, 10);
 
     });
 });
