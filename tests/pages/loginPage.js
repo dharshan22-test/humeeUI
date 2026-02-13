@@ -1,47 +1,58 @@
 const { expect } = require('@playwright/test');
-const {authentication} = require('./authentication'); 
+const { authentication } = require('./authentication');
 
-exports.loginPage = class LoginPage{
+exports.loginPage = class LoginPage {
 
     /**
      * @param {import('@playwright/test').Page} page
      */
 
-    constructor(page){
+    constructor(page) {
         this.page = page;
     }
 
+    // Verify dashboard is displayed
+    async verifyDashboard() {
+        await expect(this.page.locator("img.header-logo")).toBeVisible();
+    }
+
     // Login into Application
-    async login(phoneNumber){
+    async login(phoneNumber) {
         await this.page.goto('/dashboard');
-        try{
-           await expect(this.page.locator("img.header-logo")).toBeVisible({timeout:3000});    
-        } catch{
-            await authentication(this.page,phoneNumber);
-            await expect(this.page.locator("img.header-logo")).toBeVisible();    
+        try {
+            await expect(this.page.locator("img.header-logo")).toBeVisible({ timeout: 3000 });
+        } catch {
+            await authentication(this.page, phoneNumber);
+            await expect(this.page.locator("img.header-logo")).toBeVisible();
         }
     }
 
+    // Strict Login
+    async strictLogin(phoneNumber) {
+        await this.page.goto('/');
+        await authentication(this.page, phoneNumber);
+    }
+
     // Verify login page is displayed
-    async verifyLoginPage(){
+    async verifyLoginPage() {
         await expect(this.page.locator("div[class='country-selector']")).toBeVisible();
     }
 
     // Select Country Code
-    async selectCountryCode(countryCode){
+    async selectCountryCode(countryCode) {
         await this.page.locator("div[class='country-selector']").click();
-        await this.page.locator("div[class='country-option']>span[class='country-code']").filter({hasText:countryCode}).click();
+        await this.page.locator("div[class='country-option']>span[class='country-code']").filter({ hasText: countryCode }).click();
         await expect(this.page.locator("div[class='country-selector']>span[class='country-code']")).toHaveText(countryCode);
     }
 
     // Enter phone number
-    async enterPhoneNumber(phoneNumber){
+    async enterPhoneNumber(phoneNumber) {
         await this.page.locator("input[class='phone-input ']").pressSequentially(phoneNumber);
     }
 
     // Click Submit button
-    async clickSubmit(){
-        await this.page.getByRole('button', {name:'SIGN IN'}).click();
+    async clickSubmit() {
+        await this.page.getByRole('button', { name: 'SIGN IN' }).click();
     }
 
     // Enter OTP

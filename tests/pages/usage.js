@@ -28,6 +28,12 @@ exports.usagePage = class usagePage {
         await this.page.locator("div.usage-subscription-info>span").toHaveText(planName);
     }
 
+    // Get plan name
+    async getPlanName(){
+        const planName = await this.page.locator("div.usage-subscription-info>span").textContent();;
+        return planName
+    }
+
     // Verify Count any actions for any card in usage section
     async getCount(cardName, cardAction) {
         const cardLocator = `//div/h3[text()='${cardName}']/../../div[@class='usage-chart-content']//span[text()='${cardAction}:']/following-sibling::span`;
@@ -63,7 +69,7 @@ exports.usagePage = class usagePage {
         await this.page.locator("div.quantity-controls>button[aria-label='Decrease quantity']").click();
         await this.page.waitForTimeout(1000); // not instantaneous so giving 1 secs 
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
-        await expect(this.page.locator("div.price-row>span").filter({ hasText: finalQuantity })).toBeVisible();
+        await expect(this.page.locator("div.price-row>span").filter({ hasText: new RegExp(`^${finalQuantity}$`) })).toBeVisible();
         console.log("initial Quantity ", initialQuantity);
         console.log("final quantity ", finalQuantity);
 
@@ -77,7 +83,7 @@ exports.usagePage = class usagePage {
         await this.page.locator("div.quantity-controls>button[aria-label='Increase quantity']").click();
         await this.page.waitForTimeout(1000); // not instantaneous so giving 1 secs 
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
-        await expect(this.page.locator("div.price-row>span").filter({ hasText: finalQuantity })).toBeVisible();
+        await expect(this.page.locator("div.price-row>span").filter({ hasText: new RegExp(`^${finalQuantity}$`) })).toBeVisible();
 
         console.log("initial Quantity ", initialQuantity);
         console.log("final quantity ", finalQuantity);
@@ -170,6 +176,12 @@ exports.usagePage = class usagePage {
 
         console.log(initialTime, finalTime, increment)
         expect(finalTotal).toBe(initialTotal + increment);
+    }
+
+    // Select all Twin
+    async selectRequiredTwin(){
+        await this.page.locator("div.replica-selection-info>button").click();
+        await this.page.locator("div.replica-footer-btn-wrapper>button.btn-confirm").click();
     }
 
 
