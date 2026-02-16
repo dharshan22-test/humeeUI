@@ -139,6 +139,6 @@ test.describe('create Humee', () => {
         // Verify Humee Role is in complete status
         await createHumee.verifyHumeeStatus(editHumeeRole);
 
-    })
+    });
 
 });
