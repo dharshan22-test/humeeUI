@@ -29,7 +29,7 @@ exports.usagePage = class usagePage {
     }
 
     // Get plan name
-    async getPlanName(){
+    async getPlanName() {
         const planName = await this.page.locator("div.usage-subscription-info>span").textContent();;
         return planName
     }
@@ -159,27 +159,46 @@ exports.usagePage = class usagePage {
 
 
     /**
-     * Validates that conversation minutes increased by expected minutes
-     * @param {string} initialTime - e.g. "29h 15m"
-     * @param {string} finalTime - e.g. "25h 20m"
-     * @param {number} increment - minutes to be added (e.g. 5)
+     * Validates that conversation time increased by expected minutes
+     * Supports h, m, s (e.g. "1h 49m 10s", "0m 50s", "25h 20m")
+     *
+     * @param {string} initialTime
+     * @param {string} finalTime
+     * @param {number} incrementMinutes
      */
-    async validateConversationMinutesIncrement(initialTime, finalTime, increment) {
-        const extract = (time) => {
-            const h = time.match(/(\d+)h/);
-            const m = time.match(/(\d+)m/);
-            return (h ? parseInt(h[1]) * 60 : 0) + (m ? parseInt(m[1]) : 0);
+    async validateConversationMinutesIncrement(initialTime, finalTime, incrementMinutes) {
+
+        const toSeconds = (time) => {
+            const h = time.match(/(\d+)\s*h/);
+            const m = time.match(/(\d+)\s*m/);
+            const s = time.match(/(\d+)\s*s/);
+
+            return (
+                (h ? parseInt(h[1]) * 3600 : 0) +
+                (m ? parseInt(m[1]) * 60 : 0) +
+                (s ? parseInt(s[1]) : 0)
+            );
         };
 
-        const initialTotal = extract(initialTime);
-        const finalTotal = extract(finalTime);
+        const initialSeconds = toSeconds(initialTime);
+        const finalSeconds = toSeconds(finalTime);
 
-        console.log(initialTime, finalTime, increment)
-        expect(finalTotal).toBe(initialTotal + increment);
+        const expectedSeconds = initialSeconds + (incrementMinutes * 60);
+
+        console.log({
+            initialTime,
+            finalTime,
+            incrementMinutes,
+            initialSeconds,
+            finalSeconds,
+            expectedSeconds
+        });
+
+        expect(finalSeconds).toBe(expectedSeconds);
     }
 
     // Select all Twin
-    async selectRequiredTwin(){
+    async selectRequiredTwin() {
         await this.page.locator("div.replica-selection-info>button").click();
         await this.page.locator("div.replica-footer-btn-wrapper>button.btn-confirm").click();
     }

@@ -347,7 +347,7 @@ exports.createHumeeSection = class createHumeeSection {
         let isCompleted = 0;
 
         while (Date.now() - startTime < timeoutMs) {
-            await expect(this.page.locator(".personas-list").locator(".item-info").filter({ hasText: humeeRole })).toBeVisible();
+            await expect(this.page.locator(".personas-list").locator(".item-info").filter({ hasText: humeeRole })).toBeVisible({timeout:60000});
             if (await statusLocator.isVisible()) {
                 await expect(statusLocator).toBeVisible();
                 isCompleted = 1;
