@@ -110,12 +110,20 @@ exports.createTwinPage = class createTwinPage {
     }
 
     // Scroll to the bottom of the container
-    async scrollToBottomOfTwinList() {
-        const twinList = this.page.locator('.replicas-list-TwinList');
+    async scrollToBottomOfTwinList(maxScrolls = 10) {
+        const items = this.page.locator('.replicas-list-TwinList .list-item');
 
-        await twinList.evaluate(el => {
-            el.scrollTop = el.scrollHeight;
-        });
+        let prevCount = 0;
+
+        for (let i = 0; i < maxScrolls; i++) {
+            await this.page.waitForTimeout(3000);
+            const count = await items.count();
+            if (count === prevCount) break;
+
+            prevCount = count;
+            await items.last().scrollIntoViewIfNeeded();
+            await this.page.waitForTimeout(400);
+        }
     }
 
 }
