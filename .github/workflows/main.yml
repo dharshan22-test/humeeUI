@@ -1,0 +1,60 @@
+name: Playwright Smoke then Regression
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Smoke Tests
+        run: |
+          npx playwright test tests/test_scripts/smoke \
+            --project=chromium \
+            --workers=1 \
+            --retries=2
+
+  regression:
+    name: Regression Tests
+    needs: smoke   # 👈 regression runs ONLY if smoke passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Regression Tests
+        run: |
+          npx playwright test tests/test_scripts/regression \
+            --project=chromium \
+            --workers=1 \
+            --retries=2
