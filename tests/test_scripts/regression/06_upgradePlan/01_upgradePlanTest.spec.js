@@ -54,7 +54,7 @@ test.describe.serial("Upgrade Plan Tests", () => {
         await login.verifyLoginPage();
 
         // Go to dashboard again
-        await login.login(userPhoneNumber)
+        await login.strictLogin(userPhoneNumber)
 
         // Go to Usage
         await usage.gotoUsage();
