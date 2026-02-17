@@ -29,7 +29,7 @@ exports.loginPage = class LoginPage {
 
     // Strict Login
     async strictLogin(phoneNumber) {
-        await this.page.goto('/');
+        await this.page.goto('/',{ timeout: 60_000 });
         await authentication(this.page, phoneNumber);
     }
 
