@@ -13,7 +13,7 @@ exports.website = class website {
     
     // Go to Humee Website
     async gotoHumeeWebsite(){
-        await this.page.goto(process.env.APPLICATION_URL);
+        await this.page.goto("https://dashboardstaging.humee.io");
     }
 
     // Connect with Humee in the home page

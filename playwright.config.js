@@ -37,7 +37,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: process.env.APPLICATION_URL,
+    baseURL: "https://dashboardstaging.humee.io",
     storageState: 'storageState.json',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
