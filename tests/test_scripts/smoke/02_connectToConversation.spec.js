@@ -1,4 +1,4 @@
-const { test } = require('@playwright/test');
+const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 const { humeeConversation } = require('../../pages/humeeConversation');
 const {loginPage} = require('../../pages/loginPage');

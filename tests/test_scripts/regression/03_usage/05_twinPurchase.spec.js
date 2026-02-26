@@ -1,4 +1,5 @@
-const { test, expect } = require('@playwright/test');
+const { test } = require('../../../utils/fixtures/myFixtures');
+const { expect } = require('@playwright/test');
 const { usagePage } = require('../../../pages/usage');
 const { stripePage } = require('../../../pages/stripePage');
 const { loginPage } = require('../../../pages/loginPage');

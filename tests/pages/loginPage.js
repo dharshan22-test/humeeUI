@@ -76,5 +76,15 @@ exports.loginPage = class LoginPage {
         await this.verifyOTPButton('enabled');
     }
 
+    // Click profile option
+    async clickProfileOption(){
+        await this.page.locator("span.user-icon").click();
+    }
+
+    // Click logout button
+    async clickLogout(){
+        await this.page.locator("button.logout-btn").click();
+    }
+
 
 }

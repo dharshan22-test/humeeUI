@@ -1,9 +1,7 @@
-const { test, expect } = require('@playwright/test');
+const { test } = require('../../../utils/fixtures/myFixtures');
+const { expect } = require('@playwright/test');
 const { loginPage } = require('../../../pages/loginPage');
 const { createTwinPage } = require('../../../pages/createTwin');
-const { upgradePlan } = require('../../../pages/upgradePlanPage');
-const { stripePage } = require('../../../pages/stripePage');
-const { log } = require('node:console');
 
 const userPhoneNumber = "8622595064";
 

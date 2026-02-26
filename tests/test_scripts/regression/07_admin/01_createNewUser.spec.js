@@ -1,4 +1,4 @@
-const { test } = require('@playwright/test');
+const { test } = require('../../../utils/fixtures/myFixtures');
 const { loginPage } = require('../../../pages/loginPage');
 const { userActivity } = require('../../../pages/userActivity');
 
@@ -35,6 +35,23 @@ test.describe.serial("User Activity Tests", () => {
 
         // Verify User is created
         await activity.enterSearchName(fullName, emailAddress, phoneNumber, "Legacy Plan");
+        await page.pause();
+        // Logout
+        await login.clickProfileOption();
+        await login.clickLogout();
+
+        // Login as User
+        await login.login(phoneNumber);
+
+        // Logout
+        await login.clickProfileOption();
+        await login.clickLogout();
+
+        // Go to Dashboard with admin login
+        await login.strictAdminLogin(userPhoneNumber, "true")
+
+        // Go to User Activity
+        await activity.gotoUserActivity();
 
         // Delete User
         await activity.deleteUser(firstName);
