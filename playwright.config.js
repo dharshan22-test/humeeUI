@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-import path from 'path';
-const env = process.env.ENV || 'staging';
+// import dotenv from 'dotenv';
+// import path from 'path';
+// const env = process.env.ENV || 'staging';
 
 /**
  * Read environment variables from file.
@@ -16,9 +16,9 @@ const env = process.env.ENV || 'staging';
  * @see https://playwright.dev/docs/test-configuration
  */
 
-dotenv.config({
-  path: path.resolve(__dirname, `.env.${env}`)
-});
+// dotenv.config({
+//   path: path.resolve(__dirname, `.env.${env}`)
+// });
 
 
 export default defineConfig({
