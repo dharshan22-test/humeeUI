@@ -1,4 +1,4 @@
-const { test } = require('../../../utils/fixtures/myFixtures');
+const { test } = require('../../utils/fixtures/myFixtures');
 const { upgradePlan } = require('../../pages/upgradePlanPage');
 const { loginPage } = require('../../pages/loginPage');
 
