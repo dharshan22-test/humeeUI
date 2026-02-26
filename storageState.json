@@ -5,7 +5,7 @@
       "value": "GA1.1.181822255.1768289013",
       "domain": ".humee.io",
       "path": "/",
-      "expires": 1805346064.62564,
+      "expires": 1806168493.0689,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -21,16 +21,6 @@
       "sameSite": "Lax"
     },
     {
-      "name": "IDE",
-      "value": "AHWqTUnY9wRj3Snq4V9ITPniLuXQwnZWI7pcifh0wP-H69VJ_r6fXf7T_EPy58Us",
-      "domain": ".doubleclick.net",
-      "path": "/",
-      "expires": 1804746602.381557,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
       "name": "WMF-Uniq",
       "value": "jSS3Z6jHOCZ-HPBThYUwiAL9AAAAAFvdr9RUAj6ucDbVNblVl1KZqw89aCyNYqFP",
       "domain": ".upload.wikimedia.org",
@@ -41,11 +31,21 @@
       "sameSite": "None"
     },
     {
+      "name": "IDE",
+      "value": "AHWqTUkx4IxgCiYV_HfiViKJww4LoFKmlT0KkNODi_cxUW4SZvvLgWqviCdmKTLS",
+      "domain": ".doubleclick.net",
+      "path": "/",
+      "expires": 1806168491.659896,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
       "name": "_ga_2BMRN8P0ZV",
-      "value": "GS2.1.s1770786063$o5$g1$t1770786064$j59$l0$h0",
+      "value": "GS2.1.s1771608491$o6$g1$t1771608493$j58$l0$h0",
       "domain": ".humee.io",
       "path": "/",
-      "expires": 1805346064.662238,
+      "expires": 1806168493.102314,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -57,7 +57,7 @@
       "localStorage": [
         {
           "name": "accessToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTdjYTkxOGY2Zjg2NWRhNmE3MzYxNWIiLCJwbGFuSWQiOiI2OGYyMzYyZDc4ZWMzMzhkYjdkMGM1NDQiLCJzdWJzY3JpcHRpb25JZCI6IjY5ODFhYjY5ZGM3ZjQzMmFlYzFlYzJlYSIsInJvbGUiOjEsImlhdCI6MTc3MDc4NjA2MSwiZXhwIjoxNzczMzc4MDYxfQ.Rl7LQekjKikQGer2YK6Vdoq15AGlvEZZbFTokIXBXBE"
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTdjYTkxOGY2Zjg2NWRhNmE3MzYxNWIiLCJwbGFuSWQiOiI2OGYyMzYyYzc4ZWMzMzhkYjdkMGM1NDAiLCJzdWJzY3JpcHRpb25JZCI6IjY5OTQ0MDBjNzAzYTJhNjhkY2E3NWVmMyIsInJvbGUiOjEsImlhdCI6MTc3MTYwODQ4OSwiZXhwIjoxNzc0MjAwNDg5fQ.9GbjVy7KsX1TeJxa-luT6LmhwdDFJ1bJ98MytQHGPSk"
         },
         {
           "name": "isMasterAdmin",
@@ -65,11 +65,11 @@
         },
         {
           "name": "_gcl_ls",
-          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":15,\"timeouts\":0,\"creationTimeMs\":1770786064635},\"expires\":1778562064635}}"
+          "value": "{\"schema\":\"gcl\",\"version\":1,\"gcl_ctr\":{\"value\":{\"value\":17,\"timeouts\":0,\"creationTimeMs\":1771608493077},\"expires\":1779384493077}}"
         },
         {
           "name": "userData",
-          "value": "{\"_id\":\"697ca918f6f865da6a73615b\",\"userUID\":\"U1lzTnZVwuSuMRAzPXsekY4o8nu1\",\"firstName\":\"Greg\",\"lastName\":\"Collins\",\"countryCode\":\"+1\",\"mobile\":\"8622595064\",\"email\":\"ydtest22@gmail.com\",\"status\":true,\"companyName\":\"\",\"street\":\"23, West Street\",\"city\":\"Newyork City\",\"state\":\"Newyork\",\"zipCode\":\"110221\",\"businessCountryCode\":\"\",\"businessNumber\":\"\",\"businessEmail\":\"\",\"industry\":\"\",\"numberofEmployee\":\"\",\"dateOfBirth\":\"01/22/1998\",\"type\":1,\"interest\":\"Movies\",\"paymentStatus\":true,\"tavusApiKey\":\"55bec88fc4bf4670a9f192a9caab4757\",\"profilePic\":\"\",\"role\":1,\"stripeCustomerId\":\"cus_TuTV3TJwJOGQHC\",\"planId\":\"68f2362d78ec338db7d0c544\",\"planAmount\":600,\"lastPaymentDate\":1770105705582,\"createdBy\":null,\"subscriptionId\":\"6981ab69dc7f432aec1ec2ea\",\"permissions\":{\"user:create\":false,\"user:read\":true,\"user:update\":true,\"user:delete\":false,\"user:list\":false},\"deletedMobile\":\"\",\"createdAt\":\"2026-01-30T12:50:32.685Z\",\"updatedAt\":\"2026-02-05T04:53:26.066Z\",\"__v\":0}"
+          "value": "{\"_id\":\"697ca918f6f865da6a73615b\",\"userUID\":\"U1lzTnZVwuSuMRAzPXsekY4o8nu1\",\"firstName\":\"aqnvivmxr\",\"lastName\":\"sbeaxpyhus\",\"countryCode\":\"+1\",\"mobile\":\"8622595064\",\"email\":\"ydtest22@gmail.com\",\"status\":true,\"companyName\":\"\",\"street\":\"23, West Street\",\"city\":\"Newyork City\",\"state\":\"Newyork\",\"zipCode\":\"110221\",\"businessCountryCode\":\"\",\"businessNumber\":\"\",\"businessEmail\":\"\",\"industry\":\"\",\"numberofEmployee\":\"\",\"dateOfBirth\":\"01/22/1998\",\"type\":1,\"interest\":\"Movies\",\"paymentStatus\":true,\"tavusApiKey\":\"55bec88fc4bf4670a9f192a9caab4757\",\"profilePic\":\"https://meet-humee.s3.us-west-1.amazonaws.com/profile-pictures/697ca918f6f865da6a73615b-profile-1771338954533.jpg\",\"role\":1,\"stripeCustomerId\":\"cus_TzkqZaqTf9oQV4\",\"planId\":\"68f2362c78ec338db7d0c540\",\"planAmount\":64,\"lastPaymentDate\":1771323405507,\"createdBy\":null,\"subscriptionId\":\"6994400c703a2a68dca75ef3\",\"permissions\":{\"user:create\":false,\"user:read\":true,\"user:update\":true,\"user:delete\":false,\"user:list\":false},\"deletedMobile\":\"\",\"createdAt\":\"2026-01-30T12:50:32.685Z\",\"updatedAt\":\"2026-02-17T14:35:55.032Z\",\"__v\":0}"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "localStorage": [
         {
           "name": "accessToken",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTdjYTkxOGY2Zjg2NWRhNmE3MzYxNWIiLCJwbGFuSWQiOiI2OGYyMzYyZDc4ZWMzMzhkYjdkMGM1NDQiLCJzdWJzY3JpcHRpb25JZCI6IjY5ODFhYjY5ZGM3ZjQzMmFlYzFlYzJlYSIsInJvbGUiOjEsImlhdCI6MTc3MDc4NjA2MSwiZXhwIjoxNzczMzc4MDYxfQ.Rl7LQekjKikQGer2YK6Vdoq15AGlvEZZbFTokIXBXBE"
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OTdjYTkxOGY2Zjg2NWRhNmE3MzYxNWIiLCJwbGFuSWQiOiI2OGYyMzYyYzc4ZWMzMzhkYjdkMGM1NDAiLCJzdWJzY3JpcHRpb25JZCI6IjY5OTQ0MDBjNzAzYTJhNjhkY2E3NWVmMyIsInJvbGUiOjEsImlhdCI6MTc3MTYwODQ4OSwiZXhwIjoxNzc0MjAwNDg5fQ.9GbjVy7KsX1TeJxa-luT6LmhwdDFJ1bJ98MytQHGPSk"
         },
         {
           "name": "isMasterAdmin",
@@ -86,11 +86,11 @@
         },
         {
           "name": "subscriptionData",
-          "value": "xfMh2RzG_TJaWSPHyAh92rEC_G_C7okWAkbt3DJkA4-OacLhiiZxk-DZznd0cpEms-NcYosfUC9thisLxAw3oBGOIMs53w6CRqvXDS-5XDS38lNO7q_CgR0-M-KOHzlVfEbr-BbVsxYpESKctUqKsnr8R3lGXnZmfG61kzg4I6-fv_9wckiyjUxGsi5acOInxknYfIAPYNALaF_5FThNF1YtGkROjW26jnA1BkMt0D-pX1VYUnoVA16t-mnEzCHMT09sB0MTwF75hFQSmsec2J5n0xjkkTxo4tqtneshRyXccF2bjUz9_7r0rj8LyjwM4oHi8iljs0r23cbmKul0iFJhqe_WlwWBvI7YAss82ui46dJTJZ8zhLYjAO1QZB5VNsNDm1QnYYx5huZcMOtjU8q5f7BXUeb83WJOHCsImzqq5_sRQ5Pc-Aer4WjUz0LSIthVHhfPAjRNOm5AZ-oTxQBpBT6A2hhooliUtq-eoJo4QHIVY72iMf--_CJYdx1_yTD3Rqo4K_r2A9K0_9cXssdi8StwL3KT52jdGYuehZ3HsNCqZHcKrqIrqi1XV2dIfUJzsIpGvu81H48M-KeAnzuNlmMKt4p2cxeeBNAItcMvemBowIfNjz0nCy1qIvaE_LvITtyYnttkBAidxVp2vfAHpzlW1ppU1FlDkLnf0DjCh7shVHD_6NB2vebHYl8V8UiSCSvzP10t_SGsU-kbzcd1Mn4FYfPuezdwFyNmkWGDxpuZTQDAo6ClHKpwVpxnvWzlWCi7a_JejjO-Ij5DSoGRkaK2xvjdZ-5xvMaWp4JQwiSOlPYak87pHyea6PLASrBLIiLCTM4j4RGlpI6iCCkIjL1wwrwgql9sUwuPS80sKl-dDohW5niti8Chpqnj159286DINckSkFuZgZlbjSYDbJRYcamiAtzFOfAoK6m4BrOw3t-tUQ1yUfZj8oio1Vs9guStJjhv4L4aluvLM6SnYpysfjBalk-yi0p3yUnhv32lhJJ7SL7t97lVkHoYN6Bn3lMh6GpVN-q0Gn0VJWwtFvuLinhbore4Il8hBjJwbwlXcr-FB4TJBHq1s5bODa-uOUvHJ4-ypuQFH_FSC8gZkoVCxnwtk-IRWsq6t3i98lqRPh82woARidZ80heB1eKLAx-qFxtFiL2NF62AKlYSfVEanmlc4tOzjh3rjN7hJQuO0hP8W6zf7dtx-AfwOiaTnXtPriHHBFNwIYUnu43rPvBz-qidrUPB8Hya1KlwOUYgWb5tupFKqGV3GPqmayMjJMU41dD3tWVjeeyCa1h3mvzsuFXrNJKy5SmDS0Cb2-mPOBEyc9qjEcKWomnzdGQFNR-18rDoI5h5yNJHaUj-34JcjziUwoSmsqbCTRctfskX9JjXDIe8FC80FVO3LloUS-VPYZReAyBqdY04j0q-Bqi7td72DVvMhzgyyoM2qXKpIaAs4KgLsdlmcSuMBq-6P6msBOlkmX2Po1hC3ZLcY7iZRuG5hfgIxQAZP4_1TNJ6zLIWFsDsdzeHz56DX1NY7Eq0DwcCVLU2jPB6MGr1kejLPadsv__eh4N5bd_nUZMfeViq1_i6PChRgUdpRXqSQIJSsUCqBEWXKqFzZLJjGzBmW6RL5tXLP6Wu7W0U88sbi-dUbd_8OuHI27HEBJZeyA7nPRdFd9-v4G5RMe-ohrwtwbDPgUrCR6vEDKHFMFYyfnJq2cSAEk5nvKdFOj6AAapvh0xgjmgn9EmqeTzvG74DVaYpCFCABczYcXnTcqz68BctAKvXuBGEgU6NbUQNZLerIh3TS1UjYt0ZbCRv0VQ1HBMxMhd4BBf5Efqo_SV9Fys3td8tSZNkSuLxOTn7QEzPW0B0F9p5EPaQ3wjcxMPcMO7nr46IO53CX6GsJ_lNsr4zWGdI1pHYHpJJKrVaJauxjVB6l_uThvAb91Y15vVTHTMaR-P5oWdq9tstKFajYM4Nj5T_DkPce-B-6lCLa_aqrUbcChJ599C7k-HCIP7rEhuuWw3bJa5As-npm9JDX4UNBCoduNDG3bZOMysy64Ss2R-BozY2vtTFtqzjDTZqtN98tbN0nj-g5oH9rcb0WNJ9Kkvl43_Y8_ukKnfVCTT9J3FHRqKC3ah20VsxE_CD2y5EFQKKEXWVr8KwSQaNI96y-_t9KmcyB-GYnikWyz7fz15eKivBIyZsW0hlVQu2NyESN34NfWOOeBrYe23pInFjQbesVLqONmvHxhNNhg3zUiCxRQ5761Meh-M_okim00uBXeiMpEDkXxUZkWEAPsLrXD670LgQijkbEnnoLWhLxV_3FcpUMgrcoDF6spma685a6DBxevZCYHqt2ZM-SH0mCMnFVu-N1dzMta79tVfBGfSY7iuL19fUn3GakhIZgGi1mq5P1__0koZ4tW4mhRRkDtvTBA2dT_OlPEaXuS6jUJMY86brDycyz48XCItbvyXD6GmatrSzjQ7nCPQb4qDSB2YQAV-iEv3a-zguVE5HJ4rXpVVa3vhrvNq0BJ7sXTZFODgoFO_Ah_zrgxxLAz40bOK_9mmIupvjYXcsfKMc30xHflOxbWrKWjFWAebP1Lc1SEOriS15OnYZRmbMp5urSc3Wbs3DfG86VzUzUAm-W1tWfhQfHfFUHs9lJg3X8YraLAkcUWjX-HI2mziruUi2X_6tt18LBSh1TH7tHLvs72qOLFQCrqBwcOnK8Tr_My8owMS1JO1rPjOjXMAvVv2S_tG7OJ1g4ZPMRUecTWrqVWxuuKtgrulDjLTfNFNYJt5-BasS1LAv3ESzu1dhFcVFRMDrAwJrouJpgaOkiXQ8uKwECtZB3UPjCB2CQVRCzmV3zsebqmDkOLs_Uyb1D2BUsfZT4zc0WzTSHlrV_NW1AwTKnSDbvqzB1zehsG8PG7WkhG8cqO67df4K3DWmC3Mf9fLwIzFPBBN9OAnmoJoEtghwSIufzrsqAxxaXrQCZ_NNZVz4FIMzgmg"
+          "value": "xfMh2RzG_TJaWSPHyAh92rEC_G_C7okWAkbt3DJkA4-OacLhiiZxk-DZznd0cpEm61rqeAS4ejakyP3CCoMpUFcEjRQXiQMq1IGyLd5FNAp_I1z-6IBwNAFMsEJAwI3xziCGazKDYcrft5NP5BRlzrvNFXJ-DO5t8TYsHnzTs7TchdYOlZ4zuJq4dkROZYCC-Ngy_oWGn1gi623Jr_q5P36NGhtgl0HIds5CuwWAaP_V22k4LTXCrDgJYqu7z7EWcEOC5M3yqIioQJsizNYEkqVf_qs1nedSWYxr-MQyGOhel95nkDQTKHcyo21kqzyPCYjIzFrPS2620sMMKml-u2IzLmqE1A7jhMg_2cY-tOj98F2EpWaSOExIsSUR256okkZtb_j-JOt742CbWsQkURBjNxjL4gA9w4BjxSyDfdbvCztvzdTuFAttMGDbP0854wceXGc0DA0zpua-ToWV2DDnyiZBedtt51fBtJ7GKzcZ-oj44jCRwSvnQZGqaVT9N_b5OVuPlD8AkjD17s17AeGhs2ewvGZojVWbSVGjG40W4pc3TgA3km4qfNBROKSJNmxkqBxiXFMTtsTko75_OkeCbnASqZLspe9h6eWFX470FslHD8FDmQhO5-QFXK5i7hX2T4IwnmsmaSkIDRcWh6AgtyDZglXMpO8rpkUnnGn_Qq2GELbzyd4DEH7qjhxTF_RdA_5N2HEkgN6ihcbg2Umtab0jRQUYRAhz252xGMvMbpjxF47H0m1k7Q1ZK9FixAwMPmfhReKG0_oinAvqPfL2EJPn49eeNK7r8ejIJ0KP9gWuEdKZB4SIIbqvd31sXDgW10nVJkHHZj7jMf0M1VvmoobYxfNdxkt2ZkR_8kmsOCgzulRpwvG8UrbsvwfYbfxyk_IJqkTKeH36yEstIJ5aFgd8D7sDmB_CRYh7g1JmaEj-GYG1A9Q59S_twa3qiE_8KXMU0PQ11nS-792f_ZYs1v-YwzHGtyBKGei_f5wzC5ZkqC3yFzAsee51xkvdyH6WObB6Nl3C09beccpvqfGYX8MXcUZjxiuIUzMQxinE0LCqHLZFHuVJYwAqqQPbEmBgRpFZ6olhJQqAK9VQAbfIL1g2-bQxRYFdcHwLvozphQJfz9yCq6kDl8KGbR3eAkzPECH-avPwPDtJYJ5fOGVMFEwC6v-7i3tQ8XJr07LPboWqSqhw2mucSZsj0bkThJM6y7Lwrz-bOKUdlEIs1nEhfB2Zk5jciaVH9u9CCgmkpwsepmBlYWx8SSZLe7NZa_vYA9EpA7kH0tZxZQwFyq5UpytsqAbjZoPRqyP4_zOTyQb_rqv9Lf-QblTuNovR0-WvOKeb18cel-w_YVeBy7gHygid4puouPPwEKWBs2Zfe6B8NdCzDf2i_5Og4xTeXA7xg3BHEv5iU6OK8Po72-nAsPGvJ8vyjxskA0W6AG9LRR7lbzMXY5pYBxrNC2twvQu_FoJ56PWrZ5YzrNCPFau4tMoHqFAOtYpwi_K41FsY3L20uHloJx-0CIo9vubv0X7xfuAp_fyU0gDYhqU-OdBlGhdrdmKopw5gSOk1dPMmheIOUkaKiiIZYvkwlK9vNn8-Tp_KTYGQMe7x5VVIYZiDEiFKU9B_gLW5ypOIbNP1VQHfqxxpUGSFJ-etEmGnNr6_4lxzbPNbJOAsKRUM-DzrJxEWFcE8Y46RvzUcJMNfGZMOChJQfjcpn7SRv0OIqw6wc1FkWZTtWT_NECvTe-qllkHFYukqhz_uviup5hx6EUMSQCO5disi6R0IGj7E5K1_DNCNy9-2VpsOzlnKaDhZ71MSC1gj0f282hRlsNfY1LIBcxsn8V7SLn20yAv7ODOd4h83JtWQRlFZyfFNOxc5DIUPzRwQ-le2VtPCHp3B62WYDfDLWWzDY0mvoHHQaR9Wd8nU0SjZpeDX2g18Jso8BQNibzGA9MOyBG0FYq3ZDO2zEMuS3TVomFvk_OK9mDi17gHbZXSuc9icyOhze-NEx416zuluo0-A20E6YkvC475kk8YV3HnG6Wd56U3vL1DWueIrmip4WGHXIzjHcBlVGust23CeGDBcSNCOnbWj_6sGjdvJ4G5bQWO_ayPdH3chAVJ9_nPzBXLg8egEcKwJ38G4hAjXKMfKDe-ic2dw6Hv5R8uZOqfsQWNrPNuXU8huANvJBFlNj7CK3zcFAj_s4D48EiPdf7C8ysKqfVS6aKPbtbl8kligxzBtH4yPbJgAbSC_DiJMoKrFtRHMiQCLEKFD8wwWJpGCRYXAfdCHslGjIjzsuru0aWPPWhmkEKc8SNBGXPjpwTRYOLKd_2tLnbBzlwqcrwSbYGdeHyND_HR4BcUOlr7Z_cYGJKdwR3sBkThT6w3BUWIrCrAZiH7zH20ErZdyEAsZg-rjSK_tbWbpPKH2arSYQAiQaDPHjiBD3bsgLI9n5WV-bmaZ23FYUHXW6wtDk3hKFbpFspkUvZfHjxWZCcH3svuVhVq0KSJBH6TpKzMair2rsEnTPXKcqH8FKCAnKaxM3i_6mzj5uU0l9nS6_HCSJriblKGa8CSn1lFvJW2D8xOp7GyMOt3sr3NRd4aOFLvNL5QiksDSs55gXXxJFzou3llA0mwIrSMfEiNy2MKFHUhGjI7ZeelnzOyorc4CN3WVx97KbzpCZs_ac3bxoz2D-CoO0Vzze8DhWkw9yeBxv4wavLBNu_FDPzgFDwYXxjKdWKTy_Fwyr6blEwmSNYlxynqwVUTDNbrpdRZ3MsoqXTvht-qmlh90Ea1nkqqUh6rKc2E4c8BDGXNqPC87rCvA_nuT5ot98nJ-DcOoKsBSfCr4g1aiHibBSAj6PAverY8bPYCSJHNmBtrtdxgRDGtPYko9MoF3fILAKdl_y2vKy_nZ257F9LpF8TFh-8SlQpHhSA8syYodvGpHhAtq6mq19OMbB8yO"
         },
         {
           "name": "userData",
-          "value": "{\"_id\":\"697ca918f6f865da6a73615b\",\"userUID\":\"U1lzTnZVwuSuMRAzPXsekY4o8nu1\",\"firstName\":\"Greg\",\"lastName\":\"Collins\",\"countryCode\":\"+1\",\"mobile\":\"8622595064\",\"email\":\"ydtest22@gmail.com\",\"status\":true,\"companyName\":\"\",\"street\":\"23, West Street\",\"city\":\"Newyork City\",\"state\":\"Newyork\",\"zipCode\":\"110221\",\"businessCountryCode\":\"\",\"businessNumber\":\"\",\"businessEmail\":\"\",\"industry\":\"\",\"numberofEmployee\":\"\",\"dateOfBirth\":\"01/22/1998\",\"type\":1,\"interest\":\"Movies\",\"paymentStatus\":true,\"tavusApiKey\":\"55bec88fc4bf4670a9f192a9caab4757\",\"profilePic\":\"\",\"role\":1,\"stripeCustomerId\":\"cus_TuTV3TJwJOGQHC\",\"planId\":\"68f2362d78ec338db7d0c544\",\"planAmount\":600,\"lastPaymentDate\":1770105705582,\"createdBy\":null,\"subscriptionId\":\"6981ab69dc7f432aec1ec2ea\",\"permissions\":{\"user:create\":false,\"user:read\":true,\"user:update\":true,\"user:delete\":false,\"user:list\":false},\"deletedMobile\":\"\",\"createdAt\":\"2026-01-30T12:50:32.685Z\",\"updatedAt\":\"2026-02-05T04:53:26.066Z\",\"__v\":0}"
+          "value": "{\"_id\":\"697ca918f6f865da6a73615b\",\"userUID\":\"U1lzTnZVwuSuMRAzPXsekY4o8nu1\",\"firstName\":\"aqnvivmxr\",\"lastName\":\"sbeaxpyhus\",\"countryCode\":\"+1\",\"mobile\":\"8622595064\",\"email\":\"ydtest22@gmail.com\",\"status\":true,\"companyName\":\"\",\"street\":\"23, West Street\",\"city\":\"Newyork City\",\"state\":\"Newyork\",\"zipCode\":\"110221\",\"businessCountryCode\":\"\",\"businessNumber\":\"\",\"businessEmail\":\"\",\"industry\":\"\",\"numberofEmployee\":\"\",\"dateOfBirth\":\"01/22/1998\",\"type\":1,\"interest\":\"Movies\",\"paymentStatus\":true,\"tavusApiKey\":\"55bec88fc4bf4670a9f192a9caab4757\",\"profilePic\":\"https://meet-humee.s3.us-west-1.amazonaws.com/profile-pictures/697ca918f6f865da6a73615b-profile-1771338954533.jpg\",\"role\":1,\"stripeCustomerId\":\"cus_TzkqZaqTf9oQV4\",\"planId\":\"68f2362c78ec338db7d0c540\",\"planAmount\":64,\"lastPaymentDate\":1771323405507,\"createdBy\":null,\"subscriptionId\":\"6994400c703a2a68dca75ef3\",\"permissions\":{\"user:create\":false,\"user:read\":true,\"user:update\":true,\"user:delete\":false,\"user:list\":false},\"deletedMobile\":\"\",\"createdAt\":\"2026-01-30T12:50:32.685Z\",\"updatedAt\":\"2026-02-17T14:35:55.032Z\",\"__v\":0}"
         }
       ]
     }

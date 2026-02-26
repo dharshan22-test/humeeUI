@@ -33,6 +33,12 @@ exports.loginPage = class LoginPage {
         await authentication(this.page, phoneNumber);
     }
 
+    // Strict Admin Login
+    async strictAdminLogin(phoneNumber, admin) {
+        await this.page.goto('/', { timeout: 60_000 });
+        await authentication(this.page, phoneNumber, admin);
+    }
+
     // Verify login page is displayed
     async verifyLoginPage() {
         try {

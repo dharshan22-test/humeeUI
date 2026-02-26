@@ -1,7 +1,7 @@
 const { expect, request } = require("@playwright/test");
 const CryptoJS = require("crypto-js");
 
-async function authentication(page, phoneNumber) {
+async function authentication(page, phoneNumber, admin) {
   // ================= CONFIG =================
   const API_BASE_URL = "https://apistaging.humee.io";
   const DASHBOARD_URL = "https://dashboardstaging.humee.io/";
@@ -67,6 +67,7 @@ async function authentication(page, phoneNumber) {
   const accessToken = decryptedJson.accessToken;
   const subscriptionData = decryptedJson.subscriptionData;
   const userData = decryptedJson.responseData;
+  const adminStatus = admin;
 
   expect(accessToken).toBeTruthy();
 
@@ -79,7 +80,7 @@ async function authentication(page, phoneNumber) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("subscriptionData", subscriptionData);
       localStorage.setItem("userData", JSON.stringify(userData));
-      localStorage.setItem("isMasterAdmin", "false");
+      localStorage.setItem("isMasterAdmin", admin ? "true" : "false");
     },
     { accessToken, subscriptionData, userData }
   );
