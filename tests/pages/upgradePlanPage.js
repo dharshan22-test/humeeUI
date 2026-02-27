@@ -38,19 +38,18 @@ exports.upgradePlan = class upgradePlan {
         if (currentPlanName == "Small Business Plan") {
             await this.page.locator("div.plan-category-tabs>button").filter({ hasText: "Individual" }).click();
             await this.page.locator("//div[@class='plan-title-modern' and text()='Legacy Plan']/../..//button").click();
-            planName = "Small Business Plan";
-            cost = "400";
+            planName = "Legacy Plan";
+            cost = "64";
         } else if (currentPlanName == "Legacy Plan") {
             await this.page.locator("div.plan-category-tabs>button").filter({ hasText: "Business" }).click();
             await this.page.locator("//div[@class='plan-title-modern' and text()='Small Business Plan']/../..//button").click();
-            planName = "Legacy Plan";
-            cost = "64";
+            planName = "Small Business Plan";
+            cost = "400";
         } else {
             await this.page.locator("div.plan-category-tabs>button").filter({ hasText: "Individual" }).click();
             await this.page.locator("//div[@class='plan-title-modern' and text()='Legacy Plan']/../..//button").click();
             planName = "Legacy Plan"
             cost = "64";
-
         }
         
         return { planName, cost };

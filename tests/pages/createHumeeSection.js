@@ -133,7 +133,7 @@ exports.createHumeeSection = class createHumeeSection {
     // Writing Intro Message
     async writeIntroMessage(intro, message) {
         await this.page.locator("div.SetupIntro-container").locator("input").fill(intro);
-        await this.page.locator("div.SetupIntro-container").locator("textarea").fill(message);
+        await this.page.locator("div.SetupIntro-container").locator("textarea").pressSequentially(message,{delay:100});
         await this.page.locator("button.generate-btn-setup").click();
     }
 
