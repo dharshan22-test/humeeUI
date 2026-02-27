@@ -660,5 +660,58 @@ exports.createHumeeSection = class createHumeeSection {
         await expect(this.page.locator("//div[@class='section-header']/h3[text()='Clone Humee']")).toBeVisible();
     }
 
+    // Click search button
+    async clickSearch() {
+        await this.page.locator("button.floating-search-btn").click();
+    }
+
+    // Click search button
+    async searchInput(humeeRole){
+        await this.page.locator("div.search-overlay>div>div>input").clear();
+        await this.page.locator("div.search-overlay>div>div>input").pressSequentially(humeeRole);
+    }
+
+    // Wait till skeleton loader container disappear
+    async skeletonLoader() {
+        try {
+            await expect(this.page.locator("div.skeleton-loader-container")).toBeVisible();
+            await expect(this.page.locator("div.skeleton-loader-container")).toBeHidden();
+        } catch { }
+    }
+
+    // Verify after the search completed, only one humee is displayed
+    async verifySearchCount(){
+        await expect(this.page.locator("div.personas-list>div")).toHaveCount(1);
+    }
+
+    // Verify after the search completed, only one humee is displayed for replica
+    async verifySearchCountForReplica(){
+        await expect(this.page.locator("div.replicas-list>div")).toHaveCount(1);
+    }
+
+    // Verify Search input is displayed correctly
+    async verifySearchInput(humeeRole){
+        await expect(this.page.locator("div.personas-list>div>div>h4")).toHaveText(humeeRole);
+    }
+
+    // Verify Search input is displayed correctly for replica
+    async verifySearchInputForReplica(humeeRole){
+        await expect(this.page.locator("div.replicas-list>div>div>h4")).toHaveText(humeeRole);
+    }
+
+    // Click to Humee Models section
+    async clickHumeeModel(){
+        await this.page.locator("//div[@class='left-container']//button[contains(text(),'Humee Model')]").click();
+    }
+
+
+    // Click clear button
+    async clickClear(){
+        await this.page.click("//i[@class='fas fa-times clear-search-icon-dashboard']");
+    }
+
+
+    
+
 
 }
