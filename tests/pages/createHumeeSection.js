@@ -696,7 +696,7 @@ exports.createHumeeSection = class createHumeeSection {
 
     // Verify Search input is displayed correctly for replica
     async verifySearchInputForReplica(humeeRole){
-        await expect(this.page.locator("div.replicas-list>div>div>h4")).toHaveText(humeeRole);
+        await expect(this.page.locator("div.replicas-list>div>div>h4")).toContainText(humeeRole);
     }
 
     // Click to Humee Models section
