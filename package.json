@@ -19,7 +19,9 @@
     "express": "^5.2.1",
     "firebase": "^12.7.0",
     "firebase-admin": "^13.6.0",
+    "imap": "^0.8.19",
     "jsqr": "^1.4.0",
+    "mailparser": "^3.9.3",
     "pngjs": "^7.0.0"
   },
   "directories": {

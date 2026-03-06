@@ -18,8 +18,8 @@ const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, edit
 
 const emailAddress = "ydtest223@gmail.com";
 
-test.describe("Edit Widget Icon", () => {
-    test("Click Edit Widget Icon and verify edit widget page opened correctly", async ({ page }) => {
+test.describe("Clone Widget Icon", () => {
+    test("Click Clone Widget Icon and verify clone widget page opened correctly", async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);
@@ -31,13 +31,13 @@ test.describe("Edit Widget Icon", () => {
         await createHumee.clickCloneIcon(editHumeeRole);
 
         // Enter Widget Name and Widget Role
-        await createHumee.enterHumeeName(cloneHumeeName);
+        await createHumee.cloneHumeeName(cloneHumeeName);
 
         // Enter Humee widget
-        await createHumee.enterHumeeRole(cloneHumeeRole);
+        await createHumee.cloneHumeeRole(cloneHumeeRole);
 
         // Click clone button
-        await createHumee.clickUpdateHumee();
+        await createHumee.clickCloneButton();
 
         // Wait until process become completed
         await createHumee.verifyHumeeStatus(cloneHumeeRole);

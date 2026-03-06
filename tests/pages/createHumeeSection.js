@@ -133,7 +133,7 @@ exports.createHumeeSection = class createHumeeSection {
     // Writing Intro Message
     async writeIntroMessage(intro, message) {
         await this.page.locator("div.SetupIntro-container").locator("input").fill(intro);
-        await this.page.locator("div.SetupIntro-container").locator("textarea").pressSequentially(message,{delay:100});
+        await this.page.locator("div.SetupIntro-container").locator("textarea").pressSequentially(message, { delay: 100 });
         await this.page.locator("button.generate-btn-setup").click();
     }
 
@@ -347,7 +347,7 @@ exports.createHumeeSection = class createHumeeSection {
         let isCompleted = 0;
 
         while (Date.now() - startTime < timeoutMs) {
-            await expect(this.page.locator(".personas-list").locator(".item-info").filter({ hasText: humeeRole })).toBeVisible({timeout:60000});
+            await expect(this.page.locator(".personas-list").locator(".item-info").filter({ hasText: humeeRole })).toBeVisible({ timeout: 60000 });
             if (await statusLocator.isVisible()) {
                 await expect(statusLocator).toBeVisible();
                 isCompleted = 1;
@@ -397,7 +397,7 @@ exports.createHumeeSection = class createHumeeSection {
     }
 
     // Verify Intro Video is displayed
-    async verifyIntroVideo(){
+    async verifyIntroVideo() {
         const introVideoLocator = "//div[@class='video-container-centered']/video[contains(@src,'https://meet-humee.s3.us-west-1.amazonaws.com/processed-videos/')]";
         await expect(this.page.locator(introVideoLocator)).toBeVisible();
     }
@@ -655,9 +655,7 @@ exports.createHumeeSection = class createHumeeSection {
     // Click clone icon
     async clickCloneIcon(humeeRole) {
         await this.page.locator(`//div[@class='item-info']/h4[text()='${humeeRole}']/../../div/button[@title='Clone humee']`).click();
-        await expect(this.page.locator("div.loader-small")).toBeVisible();
-        await expect(this.page.locator("div.loader-small")).not.toBeVisible();
-        await expect(this.page.locator("//div[@class='section-header']/h3[text()='Clone Humee']")).toBeVisible();
+        await expect(this.page.locator("div.clone-modal-header>h2")).toHaveText("Clone Humee");
     }
 
     // Click search button
@@ -666,7 +664,7 @@ exports.createHumeeSection = class createHumeeSection {
     }
 
     // Click search button
-    async searchInput(humeeRole){
+    async searchInput(humeeRole) {
         await this.page.locator("div.search-overlay>div>div>input").clear();
         await this.page.locator("div.search-overlay>div>div>input").pressSequentially(humeeRole);
     }
@@ -680,38 +678,55 @@ exports.createHumeeSection = class createHumeeSection {
     }
 
     // Verify after the search completed, only one humee is displayed
-    async verifySearchCount(){
+    async verifySearchCount() {
         await expect(this.page.locator("div.personas-list>div")).toHaveCount(1);
     }
 
     // Verify after the search completed, only one humee is displayed for replica
-    async verifySearchCountForReplica(){
+    async verifySearchCountForReplica() {
         await expect(this.page.locator("div.replicas-list>div")).toHaveCount(1);
     }
 
     // Verify Search input is displayed correctly
-    async verifySearchInput(humeeRole){
+    async verifySearchInput(humeeRole) {
         await expect(this.page.locator("div.personas-list>div>div>h4")).toHaveText(humeeRole);
     }
 
     // Verify Search input is displayed correctly for replica
-    async verifySearchInputForReplica(humeeRole){
+    async verifySearchInputForReplica(humeeRole) {
         await expect(this.page.locator("div.replicas-list>div>div>h4")).toContainText(humeeRole);
     }
 
     // Click to Humee Models section
-    async clickHumeeModel(){
+    async clickHumeeModel() {
         await this.page.locator("//div[@class='left-container']//button[contains(text(),'Humee Model')]").click();
     }
 
 
     // Click clear button
-    async clickClear(){
+    async clickClear() {
         await this.page.click("//i[@class='fas fa-times clear-search-icon-dashboard']");
     }
 
+    // Enter Clone Humee Name
+    async cloneHumeeName(cloneName) {
+        await this.page.locator("input#clone-humee-name").fill(cloneName);
+    }
 
-    
+    // Enter Clone Humee Role
+    async cloneHumeeRole(cloneRole) {
+        await this.page.locator("input#clone-humee-role").fill(cloneRole);
+        await this.page.waitForTimeout(3000); // Wait for 3 seconds to make sure the input is filled, because sometimes it is not filled properly which cause the test failure, need to check this in free time and remove this wait if possible
+    }
+
+    // Click Clone Button in Clone Modal
+    async clickCloneButton() {
+        await expect(this.page.locator("button.clone-btn-ok")).toBeEnabled();
+        await this.page.locator("button.clone-btn-ok").click();
+    }
+
+
+
 
 
 }
