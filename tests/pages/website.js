@@ -13,7 +13,7 @@ exports.website = class website {
     
     // Go to Humee Website
     async gotoHumeeWebsite(){
-        await this.page.goto("https://dashboardstaging.humee.io");
+        await this.page.goto("https://www.humee.io");
     }
 
     // Connect with Humee in the home page
@@ -32,17 +32,19 @@ exports.website = class website {
     }
 
     // Enter Enquiry Info
-    async fillEnquiryForm(){
+    async fillEnquiryForm(firstName, lastName, emailAddress, companyName, mobileNumber, message){
         await this.page.fill("input[name='firstName']",firstName);
         await this.page.locator("input[name='lastName']").fill(lastName);
         await this.page.locator("input[name='workEmail']").fill(emailAddress);
         await this.page.locator("input[name='companyName']").fill(companyName);
-        await this.page.locator("input[name='mobileNumber']").fill(moblieNumber);
+        await this.page.locator("input[name='mobileNumber']").fill(mobileNumber);
         await this.page.locator("textarea[name='message']").fill(message);
         await this.page.locator("//button[text()='Submit Enquiry']").click();
         await expect(this.page.locator("//h2[text()='Enquiry Submitted Successfully!']")).toBeVisible();
         await this.page.locator("//button[text()='OK']").click();
     }
+
+    
 
 
 

@@ -21,7 +21,7 @@ test.describe("Usage page Tests", () => {
 
         // Get Allowed Conversation Minutes count
         const initialConvMins = await usage.getCount("Conversational minutes per month", "Allowed");
-        console.log("initial conv mins", initialConvMins);
+        // console.log("initial conv mins", initialConvMins);
 
         // Click buy more button
         await usage.clickBuyMoreButton("Conversational minutes per month");
@@ -58,7 +58,7 @@ test.describe("Usage page Tests", () => {
 
         // Get Allowed Conversation Minutes count
         const finalConvMins = await usage.getCount("Conversational minutes per month", "Allowed");
-        console.log(finalConvMins);
+        // console.log(finalConvMins);
 
         // Verify Converssation mins is increased 
         await usage.validateConversationMinutesIncrement(initialConvMins, finalConvMins, 10);

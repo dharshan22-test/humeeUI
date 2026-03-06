@@ -11,11 +11,11 @@ const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
 );
 
-const { humeeName, editHumeeRole, widgetTitle, widgetDescription } = humeeData;
+const { widgetTitle, widgetDescription, cloneHumeeName, cloneHumeeRole } = humeeData;
 
 const introText = "Hi, How can I help you";
 const nameQuestion = "What is your name?";
-const nameAnswer = humeeName;
+const nameAnswer = cloneHumeeName;
 const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
 const emailSubject = "This is for test purpsoe";
@@ -40,10 +40,10 @@ test.describe.serial('Conversation Test', () => {
         await login.login(userPhoneNumber)
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(editHumeeRole);
+        await createHumee.verifyCreatedHumee(cloneHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(editHumeeRole);
+        await createHumee.clickLinkIcon(cloneHumeeRole);
 
         // Get the conversation link from the humee
         const humeeLink = await createHumee.getHumeeLink();

@@ -14,10 +14,8 @@ const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
 );
 
-const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, editHumeeCompany, humeeAddress } = humeeData;
+const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, editHumeeCompany, humeeAddress, cloneHumeeName, cloneHumeeRole } = humeeData;
 
-const cloneHumeeName = `CloneNa${timeStamp}`;
-const cloneHumeeRole = `CloneR${timeStamp}`;
 const emailAddress = "ydtest223@gmail.com";
 
 test.describe("Edit Widget Icon", () => {

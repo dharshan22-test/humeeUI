@@ -21,5 +21,16 @@
     "firebase-admin": "^13.6.0",
     "jsqr": "^1.4.0",
     "pngjs": "^7.0.0"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dharshan22-test/humeeUI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dharshan22-test/humeeUI/issues"
+  },
+  "homepage": "https://github.com/dharshan22-test/humeeUI#readme"
 }

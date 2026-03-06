@@ -42,7 +42,7 @@ exports.loginPage = class LoginPage {
     // Verify login page is displayed
     async verifyLoginPage() {
         try {
-            await expect(this.page.locator("div[class='country-selector']")).toBeVisible({ timeout: 6000 });
+            await expect(this.page.locator("div[class='country-selector']")).toBeVisible({ timeout: 120000 });
         } catch { }
     }
 

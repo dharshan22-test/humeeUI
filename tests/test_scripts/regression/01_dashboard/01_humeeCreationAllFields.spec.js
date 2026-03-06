@@ -52,6 +52,9 @@ const companyLogoTwo = "tests/utils/uploadfiles/pngFileTwo.png";
 const knowledgeBaseDocPath = "tests/utils/uploadfiles/docFile.docx";
 const knowledgeBasePDFPath = "tests/utils/uploadfiles/pdfFile.pdf";
 
+const cloneHumeeName = `CloneNa${timeStamp}`;
+const cloneHumeeRole = `CloneR${timeStamp}`;
+
 test.describe.serial('create Humee', () => {
 
     test('Storing all Humee fields', async ({ }) => {
@@ -80,7 +83,9 @@ test.describe.serial('create Humee', () => {
                     humeeAddress,
                     widgetTitle,
                     widgetDescription,
-                    widgetColor
+                    widgetColor,
+                    cloneHumeeName,
+                    cloneHumeeRole
                 },
                 null,
                 2

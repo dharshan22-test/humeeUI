@@ -25,7 +25,7 @@ exports.usagePage = class usagePage {
 
     // Verify Plan Name
     async verifyPlanName(planName) {
-        await this.page.locator("div.usage-subscription-info>span").toHaveText(planName);
+        await expect(this.page.locator("div.usage-subscription-info>span")).toHaveText(planName);
     }
 
     // Get plan name
@@ -38,7 +38,7 @@ exports.usagePage = class usagePage {
     async getCount(cardName, cardAction) {
         const cardLocator = `//div/h3[text()='${cardName}']/../../div[@class='usage-chart-content']//span[text()='${cardAction}:']/following-sibling::span`;
         const cardText = await this.page.locator(cardLocator).textContent();
-        console.log(cardText);
+        // console.log(cardText);
         return cardText;
     }
 
@@ -70,8 +70,8 @@ exports.usagePage = class usagePage {
         await this.page.waitForTimeout(1000); // not instantaneous so giving 1 secs 
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
         await expect(this.page.locator("div.price-row>span").filter({ hasText: new RegExp(`^${finalQuantity}$`) })).toBeVisible();
-        console.log("initial Quantity ", initialQuantity);
-        console.log("final quantity ", finalQuantity);
+        // console.log("initial Quantity ", initialQuantity);
+        // console.log("final quantity ", finalQuantity);
 
         expect(Number(finalQuantity)).toEqual(Number(initialQuantity) - Number(decreaseBy));
     }
@@ -85,8 +85,8 @@ exports.usagePage = class usagePage {
         const finalQuantity = await this.page.locator("div.quantity-controls>input.quantity-input").getAttribute('value');
         await expect(this.page.locator("div.price-row>span").filter({ hasText: new RegExp(`^${finalQuantity}$`) })).toBeVisible();
 
-        console.log("initial Quantity ", initialQuantity);
-        console.log("final quantity ", finalQuantity);
+        // console.log("initial Quantity ", initialQuantity);
+        // console.log("final quantity ", finalQuantity);
 
         expect(Number(finalQuantity)).toEqual(Number(initialQuantity) + Number(increaseBy));
     }
@@ -185,14 +185,14 @@ exports.usagePage = class usagePage {
 
         const expectedSeconds = initialSeconds + (incrementMinutes * 60);
 
-        console.log({
-            initialTime,
-            finalTime,
-            incrementMinutes,
-            initialSeconds,
-            finalSeconds,
-            expectedSeconds
-        });
+        // console.log({
+        //     initialTime,
+        //     finalTime,
+        //     incrementMinutes,
+        //     initialSeconds,
+        //     finalSeconds,
+        //     expectedSeconds
+        // });
 
         expect(finalSeconds).toBe(expectedSeconds);
     }

@@ -67,7 +67,7 @@ async function authentication(page, phoneNumber, admin) {
   const accessToken = decryptedJson.accessToken;
   const subscriptionData = decryptedJson.subscriptionData;
   const userData = decryptedJson.responseData;
-  const adminStatus = admin;
+  const isAdmin = admin;
 
   expect(accessToken).toBeTruthy();
 
@@ -76,13 +76,13 @@ async function authentication(page, phoneNumber, admin) {
 
   // ================= INJECT LOCAL STORAGE =================
   await page.addInitScript(
-    ({ accessToken, subscriptionData, userData }) => {
+    ({ accessToken, subscriptionData, userData, isAdmin }) => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("subscriptionData", subscriptionData);
       localStorage.setItem("userData", JSON.stringify(userData));
-      localStorage.setItem("isMasterAdmin", admin ? "true" : "false");
+      localStorage.setItem("isMasterAdmin", isAdmin ? "true" : "false");
     },
-    { accessToken, subscriptionData, userData }
+    { accessToken, subscriptionData, userData, isAdmin }
   );
 
   await page.reload();

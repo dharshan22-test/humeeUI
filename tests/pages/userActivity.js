@@ -35,56 +35,56 @@ exports.userActivity = class userActivity {
     }
 
     // Fill search name in search input
-    async enterSearchName(searchName, emailAddress, mobileNumber, planName){
+    async enterSearchName(searchName, emailAddress, mobileNumber, planName) {
         const phoneNumber = await this.usFormatting(mobileNumber);
         const tableLocator = "div.table-container>div>table>tbody>tr>td";
-        await this.page.locator("div.search-controls>div>input").pressSequentially(searchName,{delay:100});
+        await this.page.locator("div.search-controls>div>input").pressSequentially(searchName, { delay: 100 });
         await expect(this.page.locator("div.table-container>div>table>tbody>tr")).toHaveCount(1);
 
-        await expect(this.page.locator(tableLocator).filter({hasText:emailAddress})).toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:phoneNumber})).toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:planName})).toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:searchName})).toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: emailAddress })).toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: phoneNumber })).toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: planName })).toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: searchName })).toBeVisible();
     }
 
     // Verify search name is not visible
-    async nameRemoved(searchName, emailAddress, mobileNumber, planName){
+    async nameRemoved(searchName, emailAddress, mobileNumber, planName) {
         const phoneNumber = await this.usFormatting(mobileNumber);
         const tableLocator = "div.table-container>div>table>tbody>tr>td";
-        await this.page.locator("div.search-controls>div>input").pressSequentially(searchName,{delay:100});
+        await this.page.locator("div.search-controls>div>input").pressSequentially(searchName, { delay: 100 });
         await expect(this.page.locator("div.table-container>div>table>tbody>tr")).toHaveCount(0);
 
-        await expect(this.page.locator(tableLocator).filter({hasText:emailAddress})).not.toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:phoneNumber})).not.toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:planName})).not.toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({hasText:searchName})).not.toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: emailAddress })).not.toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: phoneNumber })).not.toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: planName })).not.toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: searchName })).not.toBeVisible();
     }
 
     // Clear the search input
-    async clearSearch(){
+    async clearSearch() {
         await this.page.locator("div.search-controls>div>input").clear();
     }
 
     // Delete User
-    async deleteUser(firstName){
+    async deleteUser(firstName) {
         await this.page.click(`//td[text()='${firstName}']/..//button[@class='delete-user-btn']`);
         await this.page.locator("button.conversation-delete-confirm-btn").click();
-        await this.page.locator("div.swal2-actions>button").filter({hasText:'OK'}).click();
+        await this.page.locator("div.swal2-actions>button").filter({ hasText: 'OK' }).click();
         await this.waitTillTableReloads();
         await expect(this.page.locator(`//td[text()='${firstName}']/..//button[@class='delete-user-btn']`)).not.toBeVisible();
     }
 
     // Click Visitors
-    async clickVisitors(){
+    async clickVisitors() {
         await this.page.locator("//button[text()='Visitors Details']").click();
     }
 
     // Wait until table gets reloaded
     async waitTillTableReloads() {
         try {
-            await expect(this.page.locator("div.table-container")).toBeVisible({timeout:6000});
-            await expect(this.page.locator("div.table-container")).toBeHidden({timeout:6000});
-            await expect(this.page.locator("div.table-container")).toBeVisible({timeout:6000});
+            await expect(this.page.locator("div.table-container")).toBeVisible({ timeout: 6000 });
+            await expect(this.page.locator("div.table-container")).toBeHidden({ timeout: 6000 });
+            await expect(this.page.locator("div.table-container")).toBeVisible({ timeout: 6000 });
         } catch { }
     }
 
@@ -99,6 +99,20 @@ exports.userActivity = class userActivity {
         return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
     }
 
+    // Click created user
+    async clickCreatedUser(firstName) {
+        await this.page.locator(`//div[@class='table-container']//tr//td[text()='${firstName}']`).click();
+        await expect(this.page.locator("span.user-selector-label")).toContainText(firstName);
+    }
 
+    // Upgrade plan for created user
+    async upgradePlan(firstName, planName) {
+        const upgradeButtonLocator = `//div[@class='table-container']//td[text()='${firstName}']/following-sibling::td//button[@class='upgrade-btn-premium purple-theme']`;
+        await this.page.locator(upgradeButtonLocator).click();
+        await this.page.locator("select.upgrade-plan-dropdown ").selectOption(planName);
+        await this.page.locator("button.upgrade-confirm-btn").click();
+        await this.page.locator("button.swal2-confirm").click();
+        await expect(this.page.locator(upgradeButtonLocator)).toBeVisible();    
+    }
 
 }

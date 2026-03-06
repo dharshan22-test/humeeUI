@@ -11,11 +11,11 @@ const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
 );
 
-const { humeeName, editHumeeRole, widgetTitle, widgetDescription } = humeeData;
+const { widgetTitle, widgetDescription, editHumeeCompany, editHumeeSignatureName, humeeAddress, cloneHumeeName, cloneHumeeRole } = humeeData;
 
 const introText = "Hi, How can I help you";
 const nameQuestion = "What is your name?";
-const nameAnswer = humeeName;
+const nameAnswer = cloneHumeeName;
 const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
 const emailSubject = "This is for test purpsoe";
@@ -24,7 +24,7 @@ const userPhoneNumber = "8622595064";
 
 test.describe.serial('Conversation Test', () => {
 
-    test('Connect conversation using link', async ({ page }) => {
+    test('Connect conversation using Email Signature', async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -40,13 +40,19 @@ test.describe.serial('Conversation Test', () => {
         await login.login(userPhoneNumber)
 
         // Verify Humee is displayed in the page
-        await createHumee.verifyCreatedHumee(editHumeeRole);
+        await createHumee.verifyCreatedHumee(cloneHumeeRole);
 
         // Click link icon of required Humee
-        await createHumee.clickLinkIcon(editHumeeRole);
+        await createHumee.clickLinkIcon(cloneHumeeRole);
 
-        // Get the conversation link from the humee
-        const humeeLink = await createHumee.getHumeeLink();
+        // Clicked Email Signature
+        await createHumee.clickEmailSignature();
+
+        // Verify Info in Email Signature
+        await createHumee.verifyEmailSignature(editHumeeSignatureName, "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", "www.humee.com/v2")
+
+        // Scan the QR and get the URL from the Email Signature
+        const humeeLink = await createHumee.getEmailSignQRURL();
 
         // Connect with the call in Humee
         await conversation.connectToCallWithLink(humeeLink, widgetTitle, widgetDescription, "yes");
