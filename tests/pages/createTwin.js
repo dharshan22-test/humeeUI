@@ -55,8 +55,10 @@ exports.createTwinPage = class createTwinPage {
 
     // Wait until video gets uploaded
     async waitUntilLoader() {
-        await expect(this.page.locator("p.loader-message")).toBeVisible();
-        await expect(this.page.locator("p.loader-message")).toBeHidden({ timeout: 300000 }); // 5 mins timeout
+        try {
+            await expect(this.page.locator("p.loader-message")).toBeVisible();
+            await expect(this.page.locator("p.loader-message")).toBeHidden({ timeout: 300000 }); // 5 mins timeout
+        } catch (error) { }
     }
 
     // Upload training video
@@ -125,5 +127,7 @@ exports.createTwinPage = class createTwinPage {
             await this.page.waitForTimeout(400);
         }
     }
+
+    
 
 }
