@@ -16,7 +16,7 @@ const humeeData = JSON.parse(
 
 const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, editHumeeCompany, humeeAddress, cloneHumeeName, cloneHumeeRole } = humeeData;
 
-const emailAddress = "ydtest223@gmail.com";
+const emailAddress = "ydtest22@gmail.com";
 
 test.describe("Clone Widget Icon", () => {
     test("Click Clone Widget Icon and verify clone widget page opened correctly", async ({ page }) => {
