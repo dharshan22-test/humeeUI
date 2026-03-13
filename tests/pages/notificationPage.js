@@ -40,8 +40,21 @@ exports.notificationPage = class NotificationPage {
                 await this.page.locator(`//span[@class='user-name' and contains(text(),'${firstName}')]/../input`).check();
             }
         }
+
+        await this.page.locator("button.btn-submit").click();
     }
 
+    // Verify notification toaster is displayed
+    async verifyToaster() {
+        await expect(this.page.locator("div[class='notification-toast success']"))
+            .toContainText("Notification created successfully");
+    }
 
+    // Verify notification message is displayed
+    async verifyNotificationMessage(notificationMessage) {
+        await expect(this.page.locator("div[class='toast-notification toast-info']>span"))
+            .toHaveText(notificationMessage);
+    }
 
+    
 }
