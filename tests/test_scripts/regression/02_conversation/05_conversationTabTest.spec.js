@@ -22,7 +22,7 @@ const nameQuestion = "What is your name?";
 const nameAnswer = humeeName;
 const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
-const emailSubject = "This is for test purpsoe";
+const emailSubject = "This is for test purpose";
 const message = "This is for test purpose, If you got this message, which means you are an alien";
 const userPhoneNumber = "8622595064";
 

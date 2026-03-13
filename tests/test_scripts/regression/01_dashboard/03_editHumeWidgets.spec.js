@@ -50,7 +50,7 @@ test.describe('create Humee', () => {
         await createHumee.verifyEmailId(emailAddress);
 
         // Setup Email Notification
-        await createHumee.setupEmailNotification("ydtest223@gmail.com");
+        await createHumee.setupEmailNotification("ydtest22@gmail.com");
 
         // Click update Branding Instructions
         await createHumee.clickUpdateBrandDesigner();

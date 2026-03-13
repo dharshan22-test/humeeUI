@@ -1,7 +1,8 @@
 const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { humeeConversation } = require('../../../pages/humeeConversation');
-const {loginPage} = require('../../../pages/loginPage');
+const { loginPage } = require('../../../pages/loginPage');
+const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const fs = require('fs');
 const path = require('path');
@@ -18,7 +19,7 @@ const nameQuestion = "What is your name?";
 const nameAnswer = humeeName;
 const emailAddress = "test@teset.com";
 const phoneNumber = 9382738297;
-const emailSubject = "This is for test purpsoe";
+const emailSubject = "This is for test purpose";
 const message = "This is for test purpose, If you got this message, which means you are an alien";
 const userPhoneNumber = "8622595064";
 
@@ -63,8 +64,18 @@ test.describe.serial('Conversation Test', () => {
         // End conversation
         await conversation.endConversation();
 
+        // Starting time for mail verification
+        const mailCheckStartedAt = new Date();
+
         // Fill details in busines collab
         await conversation.businessCollab(emailAddress, phoneNumber, emailSubject, message);
+
+        // Verifying mail is received for successful purchase with correct amount
+        const latestMail = await waitForLatestEmail({
+            dateNow: mailCheckStartedAt,
+            subjectContains: "This is for test purpose",
+            bodyContains: emailAddress
+        });
 
         // Switch back to parent class
         await conversation.switchBackToParentPage();

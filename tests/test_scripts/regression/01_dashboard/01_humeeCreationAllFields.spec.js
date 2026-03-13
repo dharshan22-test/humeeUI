@@ -33,7 +33,7 @@ const humeeIntroMsgEditted = `Hi welcome to New ${humeeRole}, click connect now 
 const tagLine = `TagLine-${timeStamp}`;
 const tagLineEditted = `TagLine-${timeStamp}-New`;
 
-const emailAddress = "ydtest22@gmail.com"
+const emailAddress = "ydtest223@gmail.com"
 const editHumeeSignatureName = `HumeeNameEditted`;
 const humeeAddress = `HumeeAddressB${timeStamp}`;
 

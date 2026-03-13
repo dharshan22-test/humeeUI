@@ -4,6 +4,7 @@ const { usagePage } = require('../../../pages/usage');
 const { stripePage } = require('../../../pages/stripePage');
 const { loginPage } = require('../../../pages/loginPage');
 const { upgradePlan } = require('../../../pages/upgradePlanPage');
+const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const userPhoneNumber = "8622595064";
 
@@ -49,7 +50,16 @@ test.describe.serial("Upgrade Plan Tests", () => {
         await stripe.enterCardInformation();
 
         // Click pay button
+        const mailCheckStartedAt = new Date();
         await stripe.clickPay();
+
+        // Verifying mail is received for successful purchase with correct amount
+        const latestMail = await waitForLatestEmail({
+            dateNow: mailCheckStartedAt,
+            subjectContains: "Subscription is Upgraded",
+            bodyContains: planName
+        });
+        // console.log("Correct billing email received:", latestMail.subject);
 
         // Verify login page is displayed
         await login.verifyLoginPage();

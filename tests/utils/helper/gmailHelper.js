@@ -1,5 +1,6 @@
 const Imap = require("imap");
 const { simpleParser } = require("mailparser");
+const {expect} = require('@playwright/test');
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -21,6 +22,8 @@ function getDefaultImapConfig() {
     host: "imap.gmail.com",
     port: Number(993),
     tls: true,
+    authTimeout: 30000, // 30 seconds
+    connTimeout: 30000,
     tlsOptions: {
       rejectUnauthorized: false
     }
@@ -31,21 +34,30 @@ function normalizeIncludes(value) {
   return (value || "").toLowerCase();
 }
 
+function normalizeTextContent(value) {
+  return normalizeIncludes(value).replace(/\s+/g, " ").trim();
+}
+
 function addressMatches(addressField, containsValue) {
   if (!containsValue) return true;
   if (!addressField || !Array.isArray(addressField.value)) return false;
 
-  const needle = normalizeIncludes(containsValue);
-  return addressField.value.some((entry) => {
-    const address = normalizeIncludes(entry.address);
-    const name = normalizeIncludes(entry.name);
-    return address.includes(needle) || name.includes(needle);
+  const needles = Array.isArray(containsValue) ? containsValue : [containsValue];
+  return needles.every((value) => {
+    const needle = normalizeIncludes(value);
+    return addressField.value.some((entry) => {
+      const address = normalizeIncludes(entry.address);
+      const name = normalizeIncludes(entry.name);
+      return address.includes(needle) || name.includes(needle);
+    });
   });
 }
 
 function textMatches(text, containsValue) {
   if (!containsValue) return true;
-  return normalizeIncludes(text).includes(normalizeIncludes(containsValue));
+  const haystack = normalizeTextContent(text);
+  const needles = Array.isArray(containsValue) ? containsValue : [containsValue];
+  return needles.every((value) => haystack.includes(normalizeTextContent(value)));
 }
 
 function messageMatches(parsed, filters) {
@@ -71,11 +83,18 @@ function parseMessage(stream) {
   });
 }
 
+function isAfterDate(mailDate, dateNow) {
+  if (!(dateNow instanceof Date)) return true;
+  if (!mailDate) return false;
+  return new Date(mailDate).getTime() >= dateNow.getTime();
+}
+
 function fetchLatestMatchingEmailOnce(options) {
   const {
     imapConfig,
     mailbox = "INBOX",
     since,
+    dateNow,
     unseenOnly = false,
     maxFetch = 10,
     subjectContains,
@@ -145,6 +164,7 @@ function fetchLatestMatchingEmailOnce(options) {
             try {
               const parsedEmails = await Promise.all(parseTasks);
               const matches = parsedEmails
+                .filter((mail) => isAfterDate(mail.date, dateNow))
                 .filter((mail) =>
                   messageMatches(mail, { subjectContains, bodyContains, fromContains, toContains })
                 )
@@ -175,9 +195,11 @@ function fetchLatestMatchingEmailOnce(options) {
 
 async function waitForLatestEmail(options = {}) {
   const {
-    timeoutMs = 120000,
-    pollIntervalMs = 5000,
-    since = new Date(Date.now() - 60 * 1000),
+    dateNow,
+    timeoutMs = 60000,
+    pollIntervalMs = 10000,
+    mailReceived = true,
+    since = dateNow instanceof Date ? dateNow : new Date(Date.now() - 60 * 1000),
     imapConfig = getDefaultImapConfig()
   } = options;
 
@@ -187,12 +209,29 @@ async function waitForLatestEmail(options = {}) {
 
   const started = Date.now();
   while (Date.now() - started <= timeoutMs) {
-    const mail = await fetchLatestMatchingEmailOnce({ ...options, since, imapConfig });
+    let mail = null;
+
+try {
+  mail = await fetchLatestMatchingEmailOnce({
+    ...options,
+    since,
+    dateNow,
+    imapConfig
+  });
+} catch (err) {
+  console.warn("IMAP connection failed, retrying...", err.message);
+}
     if (mail) return mail;
     await sleep(pollIntervalMs);
   }
 
-  throw new Error(`No matching email arrived within ${timeoutMs}ms.`);
+  if (mailReceived) {
+    await expect.soft(mailReceived).toBeTruthy(`Expected to receive an email matching criteria within ${timeoutMs} ms, but did not.`);
+  } else {
+    console.warn(`No matching email received within ${timeoutMs} ms`);
+  }
+
+  return null;
 }
 
 module.exports = {

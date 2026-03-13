@@ -3,6 +3,7 @@ const { expect } = require('@playwright/test');
 const { usagePage } = require('../../../pages/usage');
 const { stripePage } = require('../../../pages/stripePage');
 const { loginPage } = require('../../../pages/loginPage');
+const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const userPhoneNumber = "8622595064";
 
@@ -46,7 +47,17 @@ test.describe("Usage page Tests", () => {
         await stripe.enterCardInformation();
 
         // Click pay button
+        const mailCheckStartedAt = new Date();
         await stripe.clickPay();
+
+        // Verifying mail is received for successful purchase with correct amount
+        const latestMail = await waitForLatestEmail({
+            dateNow: mailCheckStartedAt,
+            subjectContains: "Feature Purchase Successful",
+            bodyContains: "concurrent sessions"
+        });
+
+        // console.log("Correct billing email received:", latestMail.subject);
 
         // Verify login page is displayed
         await login.verifyLoginPage();
