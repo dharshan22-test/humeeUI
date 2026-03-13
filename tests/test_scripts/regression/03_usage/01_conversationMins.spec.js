@@ -47,7 +47,7 @@ test.describe("Usage page Tests", () => {
 
         // Click pay button
         const mailCheckStartedAt = new Date();
-        // await stripe.clickPay();
+        await stripe.clickPay();
 
         const timeout = 180000; // 3 minutes
         const interval = 15000; // 15 seconds
