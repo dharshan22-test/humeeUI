@@ -2,6 +2,7 @@ const { test } = require('../../../utils/fixtures/myFixtures');
 const { usagePage } = require('../../../pages/usage');
 const { stripePage } = require('../../../pages/stripePage');
 const { loginPage } = require('../../../pages/loginPage');
+const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const userPhoneNumber = "8622595064";
 
@@ -45,7 +46,44 @@ test.describe("Usage page Tests", () => {
         await stripe.enterCardInformation();
 
         // Click pay button
-        await stripe.clickPay();
+        const mailCheckStartedAt = new Date();
+        // await stripe.clickPay();
+
+        const timeout = 180000; // 3 minutes
+        const interval = 15000; // 15 seconds
+        const start = Date.now();
+
+        let latestMail = null;
+
+        while (Date.now() - start < timeout) {
+
+            const mail = await waitForLatestEmail({
+                since: mailCheckStartedAt,
+                timeoutMs: 15000,
+                pollIntervalMs: 5000,
+                subjectContains: "Feature Purchase Successful"
+            });
+
+            if (mail) {
+
+                if (new Date(mail.date) >= mailCheckStartedAt &&
+                    mail.text.includes(totalAmount)) {
+
+                    latestMail = mail;
+                    break;
+                }
+
+                console.log("Old or unrelated email detected. Waiting for correct one...");
+            }
+
+            await new Promise(r => setTimeout(r, interval));
+        }
+
+        if (!latestMail) {
+            throw new Error("Correct billing email not received within 3 minutes");
+        }
+
+        console.log("Correct billing email received:", latestMail.subject);
 
         // Verify login page is displayed
         await login.verifyLoginPage();
@@ -64,5 +102,5 @@ test.describe("Usage page Tests", () => {
         await usage.validateConversationMinutesIncrement(initialConvMins, finalConvMins, 10);
 
     });
-    
+
 });

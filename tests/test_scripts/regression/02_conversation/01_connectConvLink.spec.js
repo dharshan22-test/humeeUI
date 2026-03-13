@@ -37,7 +37,7 @@ test.describe.serial('Conversation Test', () => {
         );
 
         // Go to Dashboard
-        await login.login(userPhoneNumber)
+        await login.login(userPhoneNumber);
 
         // Verify Humee is displayed in the page
         await createHumee.verifyCreatedHumee(editHumeeRole);

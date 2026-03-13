@@ -16,11 +16,14 @@ function formatImapDate(date) {
 
 function getDefaultImapConfig() {
   return {
-    user: "yogesh@synctag.com",
-    password: "AJb7yVmRse8E",
-    host: "imap.zoho.com",
-    port: 993,
-    tls: true
+    user: "ydtest22@gmail.com",
+    password: "pxod wxjx ckrm zwao",
+    host: "imap.gmail.com",
+    port: Number(993),
+    tls: true,
+    tlsOptions: {
+      rejectUnauthorized: false
+    }
   };
 }
 
@@ -55,6 +58,19 @@ function messageMatches(parsed, filters) {
   );
 }
 
+function parseMessage(stream) {
+  return new Promise((resolve, reject) => {
+    simpleParser(stream, (parseErr, parsed) => {
+      if (parseErr) {
+        reject(parseErr);
+        return;
+      }
+
+      resolve(parsed);
+    });
+  });
+}
+
 function fetchLatestMatchingEmailOnce(options) {
   const {
     imapConfig,
@@ -71,7 +87,7 @@ function fetchLatestMatchingEmailOnce(options) {
   return new Promise((resolve, reject) => {
     const client = new Imap(imapConfig);
     let settled = false;
-    const parsedEmails = [];
+    const parseTasks = [];
 
     const safeResolve = (value) => {
       if (settled) return;
@@ -116,9 +132,7 @@ function fetchLatestMatchingEmailOnce(options) {
 
           fetch.on("message", (msg) => {
             msg.on("body", (stream) => {
-              simpleParser(stream, (parseErr, parsed) => {
-                if (!parseErr) parsedEmails.push(parsed);
-              });
+              parseTasks.push(parseMessage(stream));
             });
           });
 
@@ -127,19 +141,25 @@ function fetchLatestMatchingEmailOnce(options) {
             safeReject(fetchErr);
           });
 
-          fetch.once("end", () => {
-            const matches = parsedEmails
-              .filter((mail) =>
-                messageMatches(mail, { subjectContains, bodyContains, fromContains, toContains })
-              )
-              .sort((a, b) => {
-                const aTime = a.date ? new Date(a.date).getTime() : 0;
-                const bTime = b.date ? new Date(b.date).getTime() : 0;
-                return bTime - aTime;
-              });
+          fetch.once("end", async () => {
+            try {
+              const parsedEmails = await Promise.all(parseTasks);
+              const matches = parsedEmails
+                .filter((mail) =>
+                  messageMatches(mail, { subjectContains, bodyContains, fromContains, toContains })
+                )
+                .sort((a, b) => {
+                  const aTime = a.date ? new Date(a.date).getTime() : 0;
+                  const bTime = b.date ? new Date(b.date).getTime() : 0;
+                  return bTime - aTime;
+                });
 
-            client.end();
-            safeResolve(matches[0] || null);
+              client.end();
+              safeResolve(matches[0] || null);
+            } catch (parseErr) {
+              client.end();
+              safeReject(parseErr);
+            }
           });
         });
       });
@@ -162,7 +182,7 @@ async function waitForLatestEmail(options = {}) {
   } = options;
 
   if (!imapConfig.user || !imapConfig.password) {
-    throw new Error("Missing IMAP credentials. Set ZOHO_IMAP_USER and ZOHO_IMAP_PASSWORD.");
+    throw new Error("Missing IMAP credentials. Set GMAIL_IMAP_USER and GMAIL_IMAP_PASSWORD.");
   }
 
   const started = Date.now();
@@ -176,5 +196,6 @@ async function waitForLatestEmail(options = {}) {
 }
 
 module.exports = {
+  fetchLatestMatchingEmailOnce,
   waitForLatestEmail
 };
