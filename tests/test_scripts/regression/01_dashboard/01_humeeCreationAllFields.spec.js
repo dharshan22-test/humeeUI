@@ -16,7 +16,7 @@ const twinNameWOHypen = "Twin 1764752031504";
 const humeeName = `HumeeN${timeStamp}`;
 
 const humeeRole = `HumeeR${timeStamp}`;
-const editHumeeRole = `Humee RoleEditted-${timeStamp}`;
+const editHumeeRole = `Humee RE${timeStamp}`;
 
 const systemPrompt = "You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
 const editSystemPrompt = "Yes, You are detail oriented and analytical software test engineer, helping users ensure software quality and reliability. Assist them with test planning, test case creation, manual and automated testing strategies, defect identification, bug reporting and regression testing. Communicate clearly, be precise and provide structured, actional guidance.";
@@ -25,7 +25,7 @@ const humeeContext = "Your goal is to help users identify defects, improve test 
 const editHumeeContext = "Yes, Your goal is to help users identify defects, improve test coverage and ensure stable, high-quality software releases.";
 
 const humeeCompany = `HumeeC${timeStamp}`;
-const editHumeeCompany = `HumeeCE-${timeStamp}`;
+const editHumeeCompany = `HumeeCE${timeStamp}`;
 
 const humeeIntroMsg = `Hi welcome to ${humeeRole}, click connect now button to get started`;
 const humeeIntroMsgEditted = `Hi welcome to New ${humeeRole}, click connect now button to get started`;

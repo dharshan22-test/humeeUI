@@ -677,24 +677,30 @@ exports.createHumeeSection = class createHumeeSection {
         } catch { }
     }
 
-    // Verify after the search completed, only one humee is displayed
+    // Verify after the search completed, only one humee is displayed (remove this)
     async verifySearchCount() {
         await expect(this.page.locator("div.personas-list>div")).toHaveCount(1);
     }
 
-    // Verify after the search completed, only one humee is displayed for replica
+    // Verify after the search completed, only one humee is displayed for replica (remove this)
     async verifySearchCountForReplica() {
         await expect(this.page.locator("div.replicas-list>div")).toHaveCount(1);
     }
 
-    // Verify Search input is displayed correctly
+    // Verify Search input is displayed correctly, now the search is not strict so getting first locator
     async verifySearchInput(humeeRole) {
-        await expect(this.page.locator("div.personas-list>div>div>h4")).toHaveText(humeeRole);
+        await expect(this.page.locator("div.personas-list>div>div>h4").nth(0)).toHaveText(humeeRole);
+    }
+
+    // Verify Search input with humee description
+    async verifySearchInputWithDescription(humeeDescription) {
+        await expect(this.page.locator("div.personas-list>div>div>p").nth(0)).toContainText(humeeDescription);
     }
 
     // Verify Search input is displayed correctly for replica
     async verifySearchInputForReplica(humeeRole) {
-        await expect(this.page.locator("div.replicas-list>div>div>h4")).toContainText(humeeRole);
+        await expect(this.page.locator("div.replicas-list>div>div>h4").nth(0)).toContainText(humeeRole);
+        await expect(this.page.locator("div.replicas-list>div>div>p").nth(0)).toContainText(humeeRole.toLowerCase());
     }
 
     // Click to Humee Models section

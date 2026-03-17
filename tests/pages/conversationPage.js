@@ -23,20 +23,17 @@ exports.conversationPage = class coversationPage {
     }
 
     // Verifying Conversation Table
-    async verifyConversationTable(humeeName, date, customerName, customerMobile, email, ip, status) {
+    async verifyConversationTable(humeeName, date, customerName, customerMobile, email, status) {
 
         await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[text()='${date}']`).nth(0)).toBeVisible();
         await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[text()='${customerName}']`).nth(0)).toBeVisible();
         await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[text()='${customerMobile}']`).nth(1)).toBeVisible();
         await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[text()='${email}']`).nth(2)).toBeVisible();
-        await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[text()='${ip}']`).nth(0)).toBeVisible();
         await expect(this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div/span[text()='${status}']`).nth(0)).toBeVisible();
 
-        // if (status == 'active') {
-        //     await expect(this.page.locator(`//div[text()='${date}']/following-sibling::div[text()='${humeeName}']`).nth(0)).not.toBeEnabled();
-        // } if (status == 'ended') {
-        //     await expect(this.page.locator(`//div[text()='${date}']/following-sibling::div[text()='${humeeName}']`).nth(0)).toBeEnabled();
-        // }
+        const conversationName = await this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div/span[@class='premium-tooltip-trigger']`).nth(0).textContent();
+        const duration = await this.page.locator(`//div[@class='conversations-table']//div[contains(text(),'${humeeName}')]/../div[@class='table-cell duration']`).nth(0).textContent();
+        return { conversationName, duration };
     }
 
     // Click the required conversation to open

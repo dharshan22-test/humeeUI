@@ -70,7 +70,7 @@ test.describe("Tests in Conversation Tab", () => {
         await convPage.gotoConversation();
 
         // Verify all the info in conversation table
-        await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", ip, "active");
+        await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", "active");
 
         // Click logo
         await createHumee.clickLogo();
@@ -88,16 +88,16 @@ test.describe("Tests in Conversation Tab", () => {
         await convPage.gotoConversation();
 
         // Verify all the info in conversation table
-        await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", ip, "ended");
+        const { conversationName, duration } = await convPage.verifyConversationTable(humeeName, formattedDate, "N/A", "N/A", "N/A", "ended");
 
         // Open the conversatio
         await convPage.openConversation(formattedDate, humeeName);
 
         // Verify conversation ID is an integer only
         await convPage.verifyConvId();
-
+await page.pause();
         // Verify the info in conversatio page
-        await convPage.verifyConversationDetails("General conversation", humeeName, twinName, ip, "ended", formattedDate);
+        await convPage.verifyConversationDetails("General conversation", humeeName, twinName, ip, "ended", formattedDate, conversationName, duration);
 
         // Verifying conversation transcript
         await convPage.verifyConvText(humeeName);

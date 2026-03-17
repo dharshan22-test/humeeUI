@@ -1,6 +1,7 @@
 const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { loginPage } = require('../../../pages/loginPage');
+const { SmallFunctions } = require("../../../utils/helper/smallFunctions");
 
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +13,7 @@ const humeeData = JSON.parse(
     fs.readFileSync(dataPath, 'utf-8')
 );
 
-const { editHumeeRole } = humeeData;
+const { editHumeeRole, editSystemPrompt } = humeeData;
 
 test.describe.serial('create Humee', () => {
 
@@ -20,7 +21,6 @@ test.describe.serial('create Humee', () => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);
-
 
         // Go to Dashboard
         await login.login(phoneNumber);
@@ -34,17 +34,21 @@ test.describe.serial('create Humee', () => {
         // Verify Humee Role is displayed correctly
         await createHumee.skeletonLoader();
 
-        // Verify count is one
-        await createHumee.verifySearchCount();
-
         // Verify search input
         await createHumee.verifySearchInput(editHumeeRole);
 
         // clear the search input
         await createHumee.clickClear();
 
-        // Click search button
-        await createHumee.clickSearch();
+         // In search input, enter humee name
+        await createHumee.searchInput(editSystemPrompt);
+
+        // Verify Humee Role is displayed correctly
+        await createHumee.skeletonLoader();
+
+        // Verify search input
+        const expectedText = SmallFunctions.truncateText(editSystemPrompt, 100);
+        await createHumee.verifySearchInputWithDescription(expectedText);
 
         // Move to stock twin section
         await createHumee.clickHumeeModel();
@@ -57,9 +61,6 @@ test.describe.serial('create Humee', () => {
 
         // Verify Humee Role is displayed correctly
         await createHumee.skeletonLoader();
-
-        // Verify count is one
-        await createHumee.verifySearchCountForReplica();
 
         // Verify search input
         await createHumee.verifySearchInputForReplica("College Athlete");
