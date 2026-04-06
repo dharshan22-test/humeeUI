@@ -17,7 +17,7 @@ const { editHumeeRole, editSystemPrompt } = humeeData;
 
 test.describe.serial('create Humee', () => {
 
-    test('Create Humee with all fields', async ({ page }) => {
+    test('Create Humee with all fields', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);

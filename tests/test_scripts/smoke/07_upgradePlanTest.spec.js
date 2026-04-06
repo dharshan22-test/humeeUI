@@ -5,7 +5,7 @@ const { loginPage } = require('../../pages/loginPage');
 const phoneNumber = "8622595064";
 
 test.describe("Smoke Test - Upgrade Plan Section", () => {
-    test("Verifying Upgrade plan page is opening correctly", async ({ page }) => {
+    test("Verifying Upgrade plan page is opening correctly", { tag: "@live" }, async ({ page }) => {
 
         const upgrade = new upgradePlan(page);
         const login = new loginPage(page);

@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-// import dotenv from 'dotenv';
-// import path from 'path';
-// const env = process.env.ENV || 'staging';
+import dotenv from 'dotenv';
+import path from 'path';
+const env = process.env.ENV || process.env.TARGET_ENV || 'staging';
 
 /**
  * Read environment variables from file.
@@ -16,9 +16,9 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 
-// dotenv.config({
-//   path: path.resolve(__dirname, `.env.${env}`)
-// });
+dotenv.config({
+  path: path.resolve(process.cwd(), `.env.${env}`)
+});
 
 
 export default defineConfig({
@@ -37,7 +37,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: "https://dashboardstaging.humee.io",
+    baseURL: process.env.APPLICATION_URL,
     storageState: 'storageState.json',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
@@ -48,6 +48,9 @@ export default defineConfig({
 
     // Enable download
     acceptDownloads: true,
+
+    // Global Action Timeout
+    actionTimeout: 30000,
 
   },
 
@@ -101,4 +104,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-

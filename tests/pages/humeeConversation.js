@@ -70,8 +70,10 @@ exports.humeeConversation = class humeeConversation {
         // In first question, ask what is your name, so we can verify that the name is displayed correctly
         if (nameQuestion) {
             await this.page.locator("//div[@class='transcription-panel']//input").fill(nameQuestion),
+            await this.page.waitForTimeout(4000);
             await this.page.locator("//div[@class='transcription-panel']//span/i[@class='fas fa-paper-plane']").click();
             await expect(this.page.locator(`//div[@class='transcription-panel']/div//div[contains(text(),'${nameAnswer}')]`)).toBeVisible();
+            await this.page.waitForTimeout(4000);
         }
         // In second question, ask question that required for specific test
 

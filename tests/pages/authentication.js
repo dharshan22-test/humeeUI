@@ -1,10 +1,10 @@
 const { expect, request } = require("@playwright/test");
 const CryptoJS = require("crypto-js");
+const { API_BASE_URL, APPLICATION_URL } = require("../utils/env");
 
 async function authentication(page, phoneNumber, admin) {
   // ================= CONFIG =================
-  const API_BASE_URL = "https://apistaging.humee.io";
-  const DASHBOARD_URL = "https://dashboardstaging.humee.io/";
+  const DASHBOARD_URL = APPLICATION_URL;
   const SECRET_KEY = "xfnr3PVyckouBZxW";
 
   // ================= LOGIN PAYLOAD =================

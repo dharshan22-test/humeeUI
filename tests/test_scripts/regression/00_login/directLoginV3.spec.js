@@ -2,17 +2,22 @@
 
 const { test, expect, request } = require("@playwright/test");
 const CryptoJS = require("crypto-js");
+const {
+  API_BASE_URL,
+  APPLICATION_URL,
+  DIRECT_LOGIN_COUNTRY_CODE,
+  DIRECT_LOGIN_MOBILE,
+} = require("../../../utils/env");
 
-test("Humee Login – API login + UI login (single file)", async ({ page }) => {
+test("Humee Login – API login + UI login (single file)", { tag: "@live" }, async ({ page }) => {
   // ================= CONFIG =================
-  const API_BASE_URL = "https://apistaging.humee.io";
-  const DASHBOARD_URL = "https://dashboardstaging.humee.io/";
+  const DASHBOARD_URL = APPLICATION_URL;
   const SECRET_KEY = "xfnr3PVyckouBZxW";
 
   // ================= LOGIN PAYLOAD =================
   const payload = {
-    countryCode: "+1",
-    mobile: "8622595064",
+    countryCode: DIRECT_LOGIN_COUNTRY_CODE,
+    mobile: DIRECT_LOGIN_MOBILE,
   };
 
   // ================= ENCRYPT REQUEST =================

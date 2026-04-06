@@ -7,7 +7,7 @@ const { enquiryList } = require('../../pages/enquiryList');
 const userPhoneNumber = "6464646464";
 
 test.describe("User Activity Tests", () => {
-    test("Verifying all the pages in user activity is working as expected", async ({ page }) => {
+    test("Verifying all the pages in user activity is working as expected", { tag: "@live" }, async ({ page }) => {
 
         const activity = new userActivity(page);
         const login = new loginPage(page);

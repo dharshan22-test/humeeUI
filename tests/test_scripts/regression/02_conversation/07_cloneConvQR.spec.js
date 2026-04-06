@@ -2,6 +2,7 @@ const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { humeeConversation } = require('../../../pages/humeeConversation');
 const { loginPage } = require('../../../pages/loginPage');
+const { DASHBOARD_ORIGIN } = require('../../../utils/env');
 const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const fs = require('fs');
@@ -25,7 +26,7 @@ const userPhoneNumber = "8622595064";
 
 test.describe.serial('Conversation Test', () => {
 
-    test('Connect conversation using QR', async ({ page }) => {
+    test('Connect conversation using QR', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -34,7 +35,7 @@ test.describe.serial('Conversation Test', () => {
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
-            { origin: 'https://dashboardstaging.humee.io' }
+            { origin: DASHBOARD_ORIGIN }
         );
 
         // Go to Dashboard

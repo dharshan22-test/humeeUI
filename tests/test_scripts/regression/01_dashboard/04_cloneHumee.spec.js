@@ -3,6 +3,7 @@ const { test } = require('../../../utils/fixtures/myFixtures');
 const { expect} = require('@playwright/test');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const {loginPage} = require('../../../pages/loginPage');
+const { WEBSITE_HOST } = require('../../../utils/env');
 const timeStamp = Date.now();
 
 const fs = require('fs');
@@ -19,7 +20,7 @@ const { twinNameWOHypen, editHumeeRole, editSystemPrompt, editHumeeContext, edit
 const emailAddress = "ydtest22@gmail.com";
 
 test.describe("Clone Widget Icon", () => {
-    test("Click Clone Widget Icon and verify clone widget page opened correctly", async ({ page }) => {
+    test("Click Clone Widget Icon and verify clone widget page opened correctly", { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);
@@ -84,6 +85,6 @@ test.describe("Clone Widget Icon", () => {
         await createHumee.clickEmailSignature();
 
         // Verify Info in Email Signature
-        await createHumee.verifyEmailSignature("HumeeNameEditted", "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", "www.humee.com/v2");
+        await createHumee.verifyEmailSignature("HumeeNameEditted", "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", `${WEBSITE_HOST}/v2`);
     });
 });

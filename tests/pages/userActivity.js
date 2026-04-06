@@ -38,6 +38,7 @@ exports.userActivity = class userActivity {
     async enterSearchName(searchName, emailAddress, mobileNumber, planName) {
         const phoneNumber = await this.usFormatting(mobileNumber);
         const tableLocator = "div.table-container>div>table>tbody>tr>td";
+        await this.page.waitForTimeout(2000); // need to handle page reload
         await this.page.locator("div.search-controls>div>input").pressSequentially(searchName, { delay: 100 });
         await expect(this.page.locator("div.table-container>div>table>tbody>tr")).toHaveCount(1);
 
@@ -51,6 +52,7 @@ exports.userActivity = class userActivity {
     async nameRemoved(searchName, emailAddress, mobileNumber, planName) {
         const phoneNumber = await this.usFormatting(mobileNumber);
         const tableLocator = "div.table-container>div>table>tbody>tr>td";
+        await this.page.waitForTimeout(2000); // need to handle page reload
         await this.page.locator("div.search-controls>div>input").pressSequentially(searchName, { delay: 100 });
         await expect(this.page.locator("div.table-container>div>table>tbody>tr")).toHaveCount(0);
 

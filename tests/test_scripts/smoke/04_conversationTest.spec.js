@@ -5,7 +5,7 @@ const { conversationPage } = require('../../pages/conversationPage');
 const phoneNumber = "8622595064";
 
 test.describe("Smoke Test - Conversation", () => {
-    test("Verifying conversation page is opening without any issues", async ({ page }) => {
+    test("Verifying conversation page is opening without any issues", { tag: "@live" }, async ({ page }) => {
 
         const conversation = new conversationPage(page);
         const login = new loginPage(page);

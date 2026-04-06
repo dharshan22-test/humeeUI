@@ -40,7 +40,7 @@ exports.enquiryList = class enquiryList {
         await expect(this.page.locator(tableLocator).filter({ hasText: companyName })).toBeVisible();
         await expect(this.page.locator(tableLocator).filter({ hasText: phoneNumber })).toBeVisible();
         await expect(this.page.locator(tableLocator).filter({ hasText: message })).toBeVisible();
-        await expect(this.page.locator(tableLocator).filter({ hasText: "Family Legacy Website" })).toBeVisible();
+        await expect(this.page.locator(tableLocator).filter({ hasText: "Professional Business Website with (10) Humee twins + integration" })).toBeVisible();
     }
 
 

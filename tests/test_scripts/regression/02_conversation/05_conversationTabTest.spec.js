@@ -3,6 +3,7 @@ const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { humeeConversation } = require('../../../pages/humeeConversation');
 const { conversationPage } = require('../../../pages/conversationPage');
 const {loginPage} = require('../../../pages/loginPage');
+const { DASHBOARD_ORIGIN } = require('../../../utils/env');
 
 const dayjs = require('dayjs');
 const formattedDate = dayjs().format('MM-DD-YYYY');
@@ -27,7 +28,7 @@ const message = "This is for test purpose, If you got this message, which means 
 const userPhoneNumber = "8622595064";
 
 test.describe("Tests in Conversation Tab", () => {
-    test("open not ended conversation and verify conversation table", async ({ page }) => {
+    test("open not ended conversation and verify conversation table", { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -36,7 +37,7 @@ test.describe("Tests in Conversation Tab", () => {
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
-            { origin: 'https://dashboardstaging.humee.io' }
+            { origin: DASHBOARD_ORIGIN }
         );
 
         // Go to Dashboard
@@ -95,7 +96,7 @@ test.describe("Tests in Conversation Tab", () => {
 
         // Verify conversation ID is an integer only
         await convPage.verifyConvId();
-await page.pause();
+
         // Verify the info in conversatio page
         await convPage.verifyConversationDetails("General conversation", humeeName, twinName, ip, "ended", formattedDate, conversationName, duration);
 
@@ -115,3 +116,4 @@ await page.pause();
         await convPage.verifySearchFunction(humeeName);
     });
 });
+

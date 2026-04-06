@@ -2,6 +2,7 @@ const { test } = require('../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../pages/createHumeeSection');
 const { humeeConversation } = require('../../pages/humeeConversation');
 const {loginPage} = require('../../pages/loginPage');
+const { DASHBOARD_ORIGIN } = require('../../utils/env');
 
 const fs = require('fs');
 const path = require('path');
@@ -18,7 +19,7 @@ const nameAnswer = humeeName;
 
 test.describe('Conversation Test', () => {
 
-    test('Connect conversation using link', async ({ page }) => {
+    test('Connect conversation using link', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -27,7 +28,7 @@ test.describe('Conversation Test', () => {
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
-            { origin: 'https://dashboardstaging.humee.io' }
+            { origin: DASHBOARD_ORIGIN }
         );
 
         // Go to Dashboard

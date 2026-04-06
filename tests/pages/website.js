@@ -1,5 +1,6 @@
 const { expect } = require('@playwright/test');
 const { lstatSync } = require('node:fs');
+const { WEBSITE_URL } = require('../utils/env');
 
 exports.website = class website {
     /**
@@ -13,7 +14,7 @@ exports.website = class website {
     
     // Go to Humee Website
     async gotoHumeeWebsite(){
-        await this.page.goto("https://www.humee.io");
+        await this.page.goto(WEBSITE_URL);
     }
 
     // Connect with Humee in the home page
@@ -28,7 +29,7 @@ exports.website = class website {
 
     // Click the first enquire now button
     async clickEnquireNow(){
-        await this.page.locator("//h3[text()='Family Legacy Website']/../..//button[text()='Enquire Now']").nth(0).click();
+        await this.page.locator("//h3[text()='Professional Business Website with (10) Humee twins + integration']/../..//button[text()='Enquire Now']").nth(0).click();
     }
 
     // Enter Enquiry Info

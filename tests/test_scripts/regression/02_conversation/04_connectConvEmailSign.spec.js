@@ -2,6 +2,7 @@ const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { humeeConversation } = require('../../../pages/humeeConversation');
 const {loginPage} = require('../../../pages/loginPage');
+const { DASHBOARD_ORIGIN, WEBSITE_HOST } = require('../../../utils/env');
 const { waitForLatestEmail } = require('../../../utils/helper/gmailHelper');
 
 const fs = require('fs');
@@ -25,7 +26,7 @@ const userPhoneNumber = "8622595064";
 
 test.describe.serial('Conversation Test', () => {
 
-    test('Connect conversation using Email Signature', async ({ page }) => {
+    test('Connect conversation using Email Signature', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const conversation = new humeeConversation(page);
@@ -34,7 +35,7 @@ test.describe.serial('Conversation Test', () => {
 
         await page.context().grantPermissions(
             ['clipboard-read', 'clipboard-write'],
-            { origin: 'https://dashboardstaging.humee.io' }
+            { origin: DASHBOARD_ORIGIN }
         );
 
         // Go to Dashboard
@@ -50,7 +51,7 @@ test.describe.serial('Conversation Test', () => {
         await createHumee.clickEmailSignature();
 
         // Verify Info in Email Signature
-        await createHumee.verifyEmailSignature(editHumeeSignatureName, "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", "www.humee.com/v2")
+        await createHumee.verifyEmailSignature(editHumeeSignatureName, "Software Test Engineer", editHumeeCompany, "+91 (998) 889-9988", humeeAddress, "ydtest222@gmail.com", `${WEBSITE_HOST}/v2`)
 
         // Scan the QR and get the URL from the Email Signature
         const humeeLink = await createHumee.getEmailSignQRURL();

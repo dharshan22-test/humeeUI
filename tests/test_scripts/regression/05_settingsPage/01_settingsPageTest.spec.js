@@ -9,7 +9,7 @@ const generateRandomName = (maxLength = 10) =>
     Math.random().toString(36).replace(/[^a-z]/g, '').slice(0, maxLength);
 
 test.describe.serial("Settings Page Tests", () => {
-    test("Update all info in Settings Popup", async ({ page }) => {
+    test("Update all info in Settings Popup", { tag: "@live" }, async ({ page }) => {
 
         const login = new loginPage(page);
         const settings = new settingsPopup(page);

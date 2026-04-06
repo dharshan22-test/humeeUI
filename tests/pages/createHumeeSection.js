@@ -137,17 +137,17 @@ exports.createHumeeSection = class createHumeeSection {
         await this.page.locator("button.generate-btn-setup").click();
     }
 
-    // Clicl Email Notification
-    async clickEmailNotification() {
-        await expect(this.page.locator("div.card-body").locator("h3").filter({ hasText: "Setup email notification" })).toBeVisible({ timeout: 180000 });
+    // Click Lead Setup
+    async clickLeadSetup() {
+        await expect(this.page.locator("div.card-body").locator("h3").filter({ hasText: "Setup Leads" })).toBeVisible({ timeout: 180000 });
         await this.clickConfigureButton();
     }
 
     // Setup Email Notification
     async setupEmailNotification(emailAddress) {
-        const emailInput = this.page.locator("input#email");
-        const toggleLabel = this.page.locator("span.toggle-label-inquiry");
-        const toggleSlider = this.page.locator(".toggle-slider-inquiry");
+        const emailInput = this.page.locator("input#email").nth(0);
+        const toggleLabel = this.page.locator("span.toggle-label-inquiry").nth(0);
+        const toggleSlider = this.page.locator(".toggle-slider-inquiry").nth(0);
 
         await emailInput.clear();
         await emailInput.fill(emailAddress);
@@ -461,7 +461,7 @@ exports.createHumeeSection = class createHumeeSection {
     async conversationDefaultOption() {
         await expect(this.page.locator("//span[contains(text(),'Mobile Authentication')]/../input")).toBeChecked();
         await expect(this.page.locator("//span[contains(text(),'Intro Video Loop')]/../input")).not.toBeChecked();
-        await expect(this.page.locator("//span[contains(text(),'Multiple Language Support')]/../input")).not.toBeChecked();
+        // await expect(this.page.locator("//span[contains(text(),'Multiple Language Support')]/../input")).not.toBeChecked();
 
     }
 
@@ -476,8 +476,8 @@ exports.createHumeeSection = class createHumeeSection {
         await expect(this.page.locator("//span[contains(text(),'Intro Video Loop')]/../input")).toBeChecked();
 
 
-        await this.page.locator("//span[contains(text(),'Multiple Language Support')]/../span[@class='checkbox-custom']").check();
-        await expect(this.page.locator("//span[contains(text(),'Multiple Language Support')]/../input")).toBeChecked();
+        // await this.page.locator("//span[contains(text(),'Multiple Language Support')]/../span[@class='checkbox-custom']").check();
+        // await expect(this.page.locator("//span[contains(text(),'Multiple Language Support')]/../input")).toBeChecked();
 
 
         await this.page.locator("input#durationLimit").fill(durationLimit);

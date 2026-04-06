@@ -9,7 +9,7 @@ const phoneNumber = "8622595064";
 
 test.describe('create Humee', () => {
 
-    test('Create Humee with mandatory fields', async ({ page }) => {
+    test('Create Humee with mandatory fields', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);

@@ -18,7 +18,7 @@ const knowledgeBaseDocPath = "tests/utils/uploadfiles/docFile.docx";
 
 test.describe('create Humee', () => {
 
-    test('Edit Humee with basic fields', async ({ page }) => {
+    test('Edit Humee with basic fields', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);

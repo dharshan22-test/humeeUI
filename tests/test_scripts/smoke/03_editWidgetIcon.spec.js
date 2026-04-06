@@ -14,7 +14,7 @@ const humeeData = JSON.parse(
 const { humeeRole } = humeeData;
 
 test.describe("Edit Widget Icon", () => {
-    test("Click Edit Widget Icon and verify edit widget page opened correctly", async ({ page }) => {
+    test("Click Edit Widget Icon and verify edit widget page opened correctly", { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);

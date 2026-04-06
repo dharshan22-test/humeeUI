@@ -1,6 +1,7 @@
 const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { loginPage } = require('../../../pages/loginPage');
+const { WEBSITE_HOST } = require('../../../utils/env');
 
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +20,7 @@ const companyLogoTwo = "tests/utils/uploadfiles/pngFileTwo.png";
 
 test.describe('create Humee', () => {
 
-    test('Edit Humee Widget Fields', async ({ page }) => {
+    test('Edit Humee Widget Fields', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);
@@ -92,7 +93,7 @@ test.describe('create Humee', () => {
         await createHumee.emailSignatureEmailAddress("ydtest222@gmail.com");
 
         // enter Website URL
-        await createHumee.emailSignatureWebsiteURL("www.humee.com/v2");
+        await createHumee.emailSignatureWebsiteURL(`${WEBSITE_HOST}/v2`);
 
         // Enter phone number
         await createHumee.emailSignaturePhoneNumber("+91", "9988899988");

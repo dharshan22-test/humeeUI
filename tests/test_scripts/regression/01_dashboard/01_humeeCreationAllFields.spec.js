@@ -1,6 +1,7 @@
 const { test } = require('../../../utils/fixtures/myFixtures');
 const { createHumeeSection } = require('../../../pages/createHumeeSection');
 const { loginPage } = require('../../../pages/loginPage');
+const { WEBSITE_HOST } = require('../../../utils/env');
 
 const fs = require('fs');
 const path = require('path');
@@ -57,7 +58,7 @@ const cloneHumeeRole = `CloneR${timeStamp}`;
 
 test.describe.serial('create Humee', () => {
 
-    test('Storing all Humee fields', async ({ }) => {
+    test('Storing all Humee fields', { tag: "@live" }, async ({ }) => {
         // Storing data in JSON file (which is in utils > testData > humeeNames.json)
         fs.writeFileSync(
             dataPath,
@@ -93,7 +94,7 @@ test.describe.serial('create Humee', () => {
         );
     })
 
-    test('Create Humee with all fields', async ({ page }) => {
+    test('Create Humee with all fields', { tag: "@live" }, async ({ page }) => {
 
         const createHumee = new createHumeeSection(page);
         const login = new loginPage(page);
@@ -134,7 +135,7 @@ test.describe.serial('create Humee', () => {
         await createHumee.writeIntroMessage("Introduction", humeeIntroMsg);
 
         // Click email notification
-        await createHumee.clickEmailNotification();
+        await createHumee.clickLeadSetup();
 
         // Setup Email Notification
         await createHumee.setupEmailNotification(emailAddress);
@@ -173,7 +174,7 @@ test.describe.serial('create Humee', () => {
         await createHumee.emailSignatureEmailAddress(emailAddress);
 
         // enter Website URL
-        await createHumee.emailSignatureWebsiteURL("www.humee.com");
+        await createHumee.emailSignatureWebsiteURL(WEBSITE_HOST);
 
         // Enter phone number
         await createHumee.emailSignaturePhoneNumber("+1", timeStamp);

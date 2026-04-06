@@ -1,6 +1,6 @@
 const Imap = require("imap");
 const { simpleParser } = require("mailparser");
-const {expect} = require('@playwright/test');
+const { expect } = require('@playwright/test');
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -211,22 +211,25 @@ async function waitForLatestEmail(options = {}) {
   while (Date.now() - started <= timeoutMs) {
     let mail = null;
 
-try {
-  mail = await fetchLatestMatchingEmailOnce({
-    ...options,
-    since,
-    dateNow,
-    imapConfig
-  });
-} catch (err) {
-  console.warn("IMAP connection failed, retrying...", err.message);
-}
+    try {
+      mail = await fetchLatestMatchingEmailOnce({
+        ...options,
+        since,
+        dateNow,
+        imapConfig
+      });
+    } catch (err) {
+      console.warn("IMAP connection failed, retrying...", err.message);
+    }
     if (mail) return mail;
     await sleep(pollIntervalMs);
   }
 
   if (mailReceived) {
-    await expect.soft(mailReceived).toBeTruthy(`Expected to receive an email matching criteria within ${timeoutMs} ms, but did not.`);
+    await expect.soft(
+      mailReceived,
+      `Expected to receive an email matching criteria within ${timeoutMs} ms, but did not.`
+    ).toBeTruthy();
   } else {
     console.warn(`No matching email received within ${timeoutMs} ms`);
   }
